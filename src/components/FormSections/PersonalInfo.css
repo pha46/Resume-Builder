@@ -1,0 +1,14 @@
+/* PersonalInfo.css */
+
+div .personalInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: auto;
+  }
+  
+  button {
+    margin-top: 10px;
+  }
+
+  
