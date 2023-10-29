@@ -53,7 +53,7 @@ const NavBar = () => {
             justifyContent: 'space-between',
           }}
         >
-          <RouterLink to="/" sx={{ textDecoration: 'none', color: 'inherit' }}>
+          <RouterLink to="/Resume-Builder" sx={{ textDecoration: 'none', color: 'inherit' }}>
             <img src={logo} alt="Resume Builder" height="100px" />
           </RouterLink>
           {isMobile ? (

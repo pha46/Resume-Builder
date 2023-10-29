@@ -12,7 +12,7 @@ function App() {
     <>
       <NavBar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/Resume-Builder" element={<HomePage />} />
         <Route path="/resume-template" element={<ResumeTemplate />} />
         <Route path="/template-form" element={<TemplateForm />} />
         <Route path="/my-resume" element={<MyResume />} />
