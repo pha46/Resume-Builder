@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
-function WorkExperience() {
+function WorkExperience({ setFormData}) {
   const [experiences, setExperiences] = useState([0]);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
@@ -19,6 +19,11 @@ function WorkExperience() {
     setExperiences(experiences.slice(0, -1));
   };
 
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((data) => ({ ...data, [name]: value }));
+  };
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
@@ -29,16 +34,16 @@ function WorkExperience() {
           <h3>Experience {index + 1}</h3><hr></hr>
           <Grid container spacing={2}>
             <Grid item xs={isMobile ? 12 : isTablet ? 6 : 5}>
-              <TextField label="Job Title" variant="outlined" fullWidth />
+              <TextField label="Job Title" name="jobTitle" onChange={handleChange} variant="outlined" fullWidth />
             </Grid>
             <Grid item xs={isMobile ? 12 : isTablet ? 6 : 5}>
-              <TextField label="Organization Name" variant="outlined" fullWidth />
+              <TextField label="Organization Name" name="orgName" onChange={handleChange} variant="outlined" fullWidth />
             </Grid>
             <Grid item xs={isMobile ? 12 : isTablet ? 6 : 5}>
-              <TextField label="Start Year" variant="outlined" fullWidth />
+              <TextField label="Start Year" name="startYear" onChange={handleChange} variant="outlined" fullWidth />
             </Grid>
             <Grid item xs={isMobile ? 12 : isTablet ? 6 : 5}>
-              <TextField label="End Year" variant="outlined" fullWidth />
+              <TextField label="End Year" name="endYear" onChange={handleChange} variant="outlined" fullWidth />
             </Grid>
           </Grid>
         </Grid>

@@ -1,5 +1,6 @@
 // ResumeTemplate.js
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Template1 from '../components/templates/template1';
 import Template2 from '../components/templates/template2';
@@ -10,8 +11,10 @@ import thumbnail2 from '../assets/Thumbnail2.png';
 import thumbnail3 from '../assets/Thumbnail3.png';
 import thumbnail4 from '../assets/Thumbnail4.png';
 import './ResumeTemplate.css';
+import { selectTemplate } from '../Redux/actions/actions';
 
 function ResumeTemplate() {
+  const dispatch = useDispatch();
   const templates = [
     { id: 1, thumbnail: thumbnail1, component: Template1, path: "/template-form" },
     { id: 2, thumbnail: thumbnail2, component: Template2, path: "/template-form" },
@@ -19,6 +22,10 @@ function ResumeTemplate() {
     { id: 4, thumbnail: thumbnail4, component: Template4, path: "/template-form" }
     /* Add other templates as needed... */
   ];
+
+  const handleSelectTemplate = (id) => {
+    dispatch(selectTemplate(id));
+  };
 
   return (
     <>
@@ -31,7 +38,7 @@ function ResumeTemplate() {
           <div key={template.id} className="template-item">
             <img src={template.thumbnail} alt={`Template ${template.id}`} />
             <div className="overlay">
-              <Link to={template.path} className="view-btn">Use Template</Link>
+            <Link to={`${template.path}`} className="view-btn" onClick={() => handleSelectTemplate(template.id)}>Use Template</Link>
             </div>
           </div>
         );

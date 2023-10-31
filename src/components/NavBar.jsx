@@ -1,15 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState,  useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { AppBar, Toolbar, IconButton, List, ListItem, ListItemText, Drawer, useTheme, useMediaQuery, Box, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import logo from '../assets/logo.svg';
+import { resetFormData } from '../Redux/actions/actions';
+import { useDispatch } from 'react-redux';
 
 const NavBar = () => {
   const [drawer, setDrawer] = useState(false);
   const location = useLocation();
-
   const theme = useTheme();
+  const dispatch = useDispatch();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  useEffect(() => {
+    // console.log('Current Path:', location.pathname);
+
+    if (location.pathname !== '/my-resume' && location.pathname !== '/about-us'
+    && location.pathname !== '/Resume-Builder' && location.pathname !== '/resume-template'
+    ) {
+      // console.log('Resetting form data...');
+      dispatch(resetFormData());
+    }
+  }, [dispatch, location.pathname]);
 
   const toggleDrawer = (open) => (event) => {
     setDrawer(open);

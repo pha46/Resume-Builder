@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import React, { useState, } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate,  } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Grid from '@mui/material/Grid';
@@ -13,21 +13,28 @@ import WorkExperience from '../components/FormSections/WorkExperience';
 import EducationDetails from '../components/FormSections/EducationDetails';
 import KeySkills from '../components/FormSections/KeySkills';
 import '../styles/TemplateForm.css';
+import { saveFormData } from '../Redux/actions/actions';
+
 
 function TemplateForm() {
   const tabs = ['Personal Info', 'Work Experience', 'Education', 'Key Skills'];
   const [activeTab, setActiveTab] = useState(0);
-  const { register, handleSubmit, formState: { errors }, watch } = useForm();
   const dispatch = useDispatch();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'md'));
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [localData, setFormData] = useState({});
+  const navigate = useNavigate();
+  
+  const selectedTemplateId = useSelector(state => state.templateRE.selectedTemplate);
 
-  const onSubmit = data => {
-    alert('A form was submitted: ' + JSON.stringify(data));
-    dispatch({ type: 'SAVE_FORM_DATA', payload: data });
+  const handleSubmit = () => {
+    // alert('A form was submitted: ');
+    // Dispatch action or perform any other logic with formData
+    navigate('/my-resume');
+    // dispatch(saveFormData(formData));
   };
 
   const goBack = () => {
@@ -40,6 +47,7 @@ function TemplateForm() {
     if (activeTab < tabs.length - 1) {
       setActiveTab(activeTab + 1);
     }
+    dispatch(saveFormData(localData));
   };
 
   const toggleDrawer = () => {
@@ -50,6 +58,8 @@ function TemplateForm() {
     width: isMobile ? '100%' : 'auto',
     margin: isMobile ? 0 : 'auto',
   };
+
+  
 
   return (
     <Grid container spacing={1} style={containerStyles}>
@@ -119,30 +129,24 @@ function TemplateForm() {
       )}
       <Grid item xs={isDesktop ? 9 : 12}>
         <div className="template-form">
-          <form onSubmit={handleSubmit(onSubmit)}>
             {tabs[activeTab] === 'Personal Info' && 
-              <PersonalInfo register={register} errors={errors} />
+              <PersonalInfo setFormData={setFormData} />
             }
             {tabs[activeTab] === 'Work Experience' && (
-              <WorkExperience register={register} errors={errors} />
+              <WorkExperience setFormData={setFormData} />
             )}
 
             {tabs[activeTab] === 'Education' && (
-              <EducationDetails register={register} errors={errors} watch={watch} />
+              <EducationDetails setFormData={setFormData} />
             )}
             {tabs[activeTab] === 'Key Skills' && (
-              <div><KeySkills register={register} errors={errors} />
-                {/* {activeTab === tabs.length - 1 ? 
-                  <input type="submit" value="Submit" /> :
-                  <button type="button" onClick={goNext}>Next</button>
-                } */}
+              <div><KeySkills setFormData={setFormData} />
               </div>
             )}
             <hr></hr>
-            {activeTab > 0 && activeTab < tabs.length - 1 && <button type="button" onClick={goBack}>Back</button>}
+            {activeTab > 0 && activeTab  && <button type="button" onClick={goBack}>Back</button>}
             {activeTab < tabs.length - 1 && <button type="button" onClick={goNext}>Next</button>}
-            {activeTab === tabs.length - 1 && <input type="submit" value="Submit" />}
-          </form>
+            {activeTab === tabs.length - 1 && <input type="submit" value="Submit" onClick={handleSubmit}/>}
         </div>
       </Grid>
     </Grid>

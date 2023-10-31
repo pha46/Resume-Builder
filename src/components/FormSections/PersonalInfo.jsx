@@ -1,22 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Avatar from '@mui/material/Avatar';
 import Link from '@mui/material/Link';
 import './PersonalInfo.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { setProfilePhoto } from '../../Redux/actions/action';
+import { setProfilePhoto, } from '../../Redux/actions/actions';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import { saveFormData } from '../../Redux/actions/actions';
 
-function PersonalInfo() {
+function PersonalInfo({ setFormData}) {
   
   const dispatch = useDispatch();
-  const profilePhoto = useSelector((state) => state.profilePhoto);
+  const profilePhoto = useSelector((state) => state.photo.profilePhoto);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
-  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+  // const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+  const [localData, setLocalData] = useState({});
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -32,8 +34,18 @@ function PersonalInfo() {
   const handleRemovePhoto = () => {
     dispatch(setProfilePhoto(null));
   };
-  
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setLocalData((data) => ({ ...data, [name]: value }));
+  };
+
+  useEffect(() => {
+    setFormData(localData);
+  }, [localData, saveFormData]);
+
   return (
+    <div>
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <h2>Personal Details</h2>
@@ -50,36 +62,37 @@ function PersonalInfo() {
       </Grid>
 
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 3}>
-        <TextField label="First Name" variant="outlined" fullWidth />
+        <TextField name="firstName" onChange={handleChange} label="First Name" variant="outlined" fullWidth />
       </Grid>
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 3}>
-        <TextField label="Last Name" variant="outlined" fullWidth />
+        <TextField name="lastName" onChange={handleChange} label="Last Name" variant="outlined" fullWidth />
       </Grid>
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 3}>
-        <TextField label="Email" variant="outlined" fullWidth />
+        <TextField name="email" onChange={handleChange} label="Email" variant="outlined" fullWidth />
       </Grid>
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 3}>
-        <TextField label="Mobile" variant="outlined" fullWidth />
+        <TextField name="mobile" onChange={handleChange} label="Mobile" variant="outlined" fullWidth />
       </Grid>
 
       <Grid item xs={12}>
-        <TextField label="Address" variant="outlined" fullWidth />
+        <TextField name="address" onChange={handleChange} label="Address" variant="outlined" fullWidth />
       </Grid>
 
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 4}>
-        <TextField label="City" variant="outlined" fullWidth />
+        <TextField name="city" onChange={handleChange} label="City" variant="outlined" fullWidth />
       </Grid>
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 4}>
-        <TextField label="State" variant="outlined" fullWidth />
+        <TextField name="state" onChange={handleChange} label="State" variant="outlined" fullWidth />
       </Grid>
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 4}>
-        <TextField label="Postal Code" variant="outlined" fullWidth />
+        <TextField name="postalCode" onChange={handleChange} label="Postal Code" variant="outlined" fullWidth />
       </Grid>
 
       <Grid item xs={12}>
-        <TextField label="Overview" variant="outlined" multiline rows={6} fullWidth />
+        <TextField name="overview"onChange={handleChange} label="Overview" variant="outlined" multiline rows={6} fullWidth />
       </Grid>
     </Grid>
+    </div>
   );
 }
 
