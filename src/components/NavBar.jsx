@@ -17,7 +17,7 @@ const NavBar = () => {
     // console.log('Current Path:', location.pathname);
 
     if (location.pathname !== '/my-resume' && location.pathname !== '/about-us'
-    && location.pathname !== '/Resume-Builder' && location.pathname !== '/resume-template'
+    && location.pathname !== '/Resume-Builder' && location.pathname !== '/template-form'
     ) {
       // console.log('Resetting form data...');
       dispatch(resetFormData());
