@@ -1,0 +1,36 @@
+.container {
+    font-family: Arial, sans-serif;
+    display: flex;
+}
+
+.sidebar {
+    width: 30%;
+    background: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+    height: 100vh;
+}
+
+.sidebar img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+
+.main-content {
+    width: 70%;
+    margin: 20px;
+}
+
+.main-content h2 {
+    color: #333;
+}
+
+.main-content p {
+    color: #666;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #f0f0f0;
+}

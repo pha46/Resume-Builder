@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Grid from '@mui/material/Grid';
@@ -14,6 +14,7 @@ import Template1 from '../components/templates/template1';
 import Template2 from '../components/templates/template2';
 import Template3 from '../components/templates/template3';
 import Template4 from '../components/templates/template4';
+import ReactToPrint from 'react-to-print';
 
 const MyResume = () => {
   const theme = useTheme();
@@ -23,16 +24,18 @@ const MyResume = () => {
   const navigate = useNavigate();
   // const formData = useSelector((state) => state.formR.formData);
   const formData = useSelector(state => state.formR.formData); // Adjust this line based on your actual Redux state structure
-
+  const componentRef = useRef();
   const selectedTemplateId = useSelector(state => state.templateRE.selectedTemplate);
 
   const handleBack = () => {
     // Navigate to the key skills filling page
-    navigate('/template-form');
+    // navigate('/template-form');
+    navigate('/template-form', { activeTab: 'Key Skills' });
   };
 
   const handleSave = () => {
     // Generate a PDF file of the preview
+    componentRef.current.handlePrint();
   };
 
   let TemplateComponent;
@@ -71,11 +74,14 @@ const MyResume = () => {
               border: '1px solid black',
               margin: '20px',
               justifyContent: 'center',
+              position: 'relative', // This sets the positioning to absolute.
+              top: 0, // Optional: you can adjust this to set the position from the top.
+              left: 40,
               overflow: 'auto',
             }}
           > 
             {TemplateComponent ? (
-              <div style={{ transform: 'scale(0.9)', transformOrigin: '0 0' }}>
+              <div ref={componentRef} style={{ transform: 'scale(0.9)', transformOrigin: '0 0' }}>
                 <TemplateComponent />
               </div>
               ) : (
@@ -104,9 +110,13 @@ const MyResume = () => {
                 <Button color="primary" onClick={handleBack}>
                   Back
                 </Button>
-                <Button color="secondary" onClick={handleSave}>
+                {/* <Button color="secondary" onClick={handleSave}>
                   Save
-                </Button>
+                </Button> */}
+                <ReactToPrint
+                  trigger={() => <Button color="secondary" onClick={handleSave}>Save</Button>}
+                  content={() => componentRef.current}
+                />
               </Box>
             </Box>
         </Grid>
