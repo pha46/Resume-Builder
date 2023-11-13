@@ -30,7 +30,7 @@ function ResumeTemplate() {
   return (
     <>
     <h1>Templates</h1>
-    <p1>Get started by selecting a template.</p1>
+    <p>Get started by selecting a template.</p>
     <div className="templates-grid">
       {templates.map(template => {
         return (

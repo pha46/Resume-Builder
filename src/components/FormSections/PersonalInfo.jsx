@@ -8,12 +8,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setProfilePhoto, } from '../../Redux/actions/actions';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import { saveFormData } from '../../Redux/actions/actions';
+// import { WidthFull } from '@mui/icons-material';
+// import { saveFormData } from '../../Redux/actions/actions';
 
-function PersonalInfo({ setFormData}) {
+function PersonalInfo({ setPersonalInfo }) {
   
   const dispatch = useDispatch();
-  const profilePhoto = useSelector((state) => state.photo.profilePhoto);
+  const profilePhoto = useSelector((state) => state.formData.profilePhoto);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
@@ -41,8 +42,8 @@ function PersonalInfo({ setFormData}) {
   };
 
   useEffect(() => {
-    setFormData(localData);
-  }, [localData, saveFormData]);
+    setPersonalInfo({ personalInfo: localData });
+  }, [localData, setPersonalInfo]);
 
   return (
     <div>
@@ -52,7 +53,7 @@ function PersonalInfo({ setFormData}) {
       </Grid>
       <Grid item xs={12} container alignItems="center" spacing={2}>
         <Grid item>
-          <Avatar alt="Profile Photo" src={profilePhoto} />
+          <Avatar alt="Profile Photo" src={profilePhoto}/>
         </Grid>
         <Grid item>
           {!profilePhoto && <Link component="button" variant="body2" onClick={() => document.getElementById('fileInput').click()}>Add Photo</Link>}

@@ -6,6 +6,7 @@ import ResumeTemplate from './pages/ResumeTemplate';
 import TemplateForm from './pages/TemplateForm';
 import MyResume from './pages/MyResume';
 import AboutUs from './pages/AboutUs';
+import './App.css';
 
 function App() {
   return (

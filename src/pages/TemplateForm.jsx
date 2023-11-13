@@ -1,7 +1,7 @@
 import React, { useState, } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate,  } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
+import { useDispatch} from 'react-redux';
+import { useNavigate,  } from 'react-router-dom';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
@@ -17,24 +17,29 @@ import { saveFormData } from '../Redux/actions/actions';
 
 
 function TemplateForm() {
-  const tabs = ['Personal Info', 'Work Experience', 'Education', 'Key Skills'];
-  const [activeTab, setActiveTab] = useState(0);
-  const dispatch = useDispatch();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'md'));
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+  const tabs = ['Personal Info', 'Work Experience', 'Education', 'Key Skills'];
+  const [activeTab, setActiveTab] = useState(0);
+  const dispatch = useDispatch();
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [localData, setFormData] = useState({});
+  const [localData, setFormData] = useState({ 
+    personalInfo: {}, 
+    education: {},
+    skills: {},
+    experience: {},
+  });
   const navigate = useNavigate();
   
-  const selectedTemplateId = useSelector(state => state.templateRE.selectedTemplate);
+  // const selectedTemplateId = useSelector(state => state.templateReducer.selectedTemplate);
 
   const handleSubmit = () => {
     // alert('A form was submitted: ');
     // Dispatch action or perform any other logic with formData
     navigate('/my-resume');
-    // dispatch(saveFormData(formData));
+    dispatch(saveFormData(localData));
   };
 
   const goBack = () => {
@@ -47,7 +52,7 @@ function TemplateForm() {
     if (activeTab < tabs.length - 1) {
       setActiveTab(activeTab + 1);
     }
-    dispatch(saveFormData(localData));
+    // dispatch(saveFormData(localData));
   };
 
   const toggleDrawer = () => {
@@ -72,7 +77,7 @@ function TemplateForm() {
           <List>
               {tabs.map((tab, index) => (
                 <ListItem
-                  button
+                  
                   key={index}
                   onClick={() => setActiveTab(index)}
                   sx={{ color: activeTab === index ? '#F00037' : 'inherit', textDecoration: 'none' }}
@@ -130,7 +135,7 @@ function TemplateForm() {
       <Grid item xs={isDesktop ? 9 : 12}>
         <div className="template-form">
             {tabs[activeTab] === 'Personal Info' && 
-              <PersonalInfo setFormData={setFormData} />
+              <PersonalInfo setPersonalInfo={setFormData} />
             }
             {tabs[activeTab] === 'Work Experience' && (
               <WorkExperience setFormData={setFormData} />

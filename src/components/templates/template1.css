@@ -1,0 +1,86 @@
+.template1-container {
+    font-family: Arial, sans-serif;
+    display: flex;
+    width: 210mm;
+    max-width: 100%;
+    margin: 1vh;
+}
+
+.template1-sidebar {
+    /* display: flex;
+    flex-direction: column; */
+    width: 40%;
+    background: #f0f0f0;
+    padding: 10px;
+    text-align: left;
+    height: 100%;
+    margin: 5px;
+    font-family: 'Arial';
+    word-wrap: break-word; /* Breaks the word at the end of the line and moves it onto the next line */
+    overflow-wrap: break-word; /* Same as word-wrap, but more modern. Use both for maximum compatibility */
+    
+}
+
+.template1-skills {
+    word-wrap: break-word; /* Breaks the word at the end of the line and moves it onto the next line */
+    overflow-wrap: break-word;
+    text-align: left;
+}
+
+.AVatar {
+    display: flex;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    color: white;
+    background-color: #3f51b5;
+    /* align-self: center; */
+    font-size: 35px;
+}
+
+.main-content {
+    width: 60%;
+    margin: 2vh;
+    
+}
+
+.main-content h2 {
+    color: #333;
+    font-family: 'Times New Roman';
+}
+
+.main-content p {
+    color: #666;
+    word-wrap: break-word; /* Breaks the word at the end of the line and moves it onto the next line */
+    overflow-wrap: break-word;
+    margin-right: 5%;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #f0f0f0;
+}
+
+.orgName {
+    color: blue;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+.jobTitle {
+    color: red;
+    font-size: 20px;
+    font-family: 'Book Antiqua';
+    text-transform: uppercase;
+}
+
+.startYear, .endYear {
+    color: purple;
+    font-size: 16px;
+    font-family: 'Book Antiqua';
+    text-transform: uppercase;
+}
+
+p {
+    font-family: 'Arial';
+}

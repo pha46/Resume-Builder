@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
+import React, {useState, useRef } from 'react';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import Grid from '@mui/material/Grid';
+// import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
@@ -18,25 +18,27 @@ import ReactToPrint from 'react-to-print';
 
 const MyResume = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  // const Mobile = useMediaQuery(theme.breakpoints.down('sm'));
   // const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
   // const isEmpty = Object.values(formData).every(x => (x === null || x === ''));
   const navigate = useNavigate();
   // const formData = useSelector((state) => state.formR.formData);
-  const formData = useSelector(state => state.formR.formData); // Adjust this line based on your actual Redux state structure
   const componentRef = useRef();
-  const selectedTemplateId = useSelector(state => state.templateRE.selectedTemplate);
-
+  const formData = useSelector(state => state.formData.formData);
+  const selectedTemplateId = useSelector(state => state.formData.selectedTemplateID);
+  // const usestate = useState();
+  const [filename, setFilename] = useState('');
   const handleBack = () => {
     // Navigate to the key skills filling page
     // navigate('/template-form');
     navigate('/template-form', { activeTab: 'Key Skills' });
   };
 
-  const handleSave = () => {
-    // Generate a PDF file of the preview
-    componentRef.current.handlePrint();
-  };
+  // const handleSave = () => {
+  //   // Generate a PDF file of the preview
+  //   componentRef.current.handlePrint();
+  // };
 
   let TemplateComponent;
   switch (selectedTemplateId) {
@@ -60,73 +62,63 @@ const MyResume = () => {
 
 
   return (!isDataEmpty && TemplateComponent) ? (
-    <Grid container style={{display: 'flex', flexDirection: 'column'}}>
-      <Grid item>
-        <h2 style={{marginLeft: '10%'}}>Resume Preview</h2>
-        <hr />
-      </Grid>
-      <Grid item style={{display: 'flex', flexDirection: isMobile? 'column' : 'row' }}>
-        <Grid item xs={12} md={6}>
+    <Box display="flex" flexDirection="column">
+      <Box>
+        <h1>Resume Preview</h1>
+        <hr/>
+      </Box>
+      <Box display="flex" flexDirection={isMobile ? 'column' : 'row'} overflow="auto">
+        <Box width={isMobile ? '100%' : '60%'} height={isMobile ? 'auto' : '100vh'}>
           <Paper
             style={{
-              width: isMobile ? '400px' : '400px' ,
-              height: isMobile ? '500px' : '500px',
-              border: '1px solid black',
-              margin: '20px',
-              justifyContent: 'center',
-              position: 'relative', // This sets the positioning to absolute.
-              top: 0, // Optional: you can adjust this to set the position from the top.
-              left: 40,
-              overflow: 'auto',
+               width: '105mm', 
+               height: '148.5mm', 
+               border: '1px solid black',
+               margin: 'auto',
+               overflow: 'auto',
             }}
           > 
-            {TemplateComponent ? (
-              <div ref={componentRef} style={{ transform: 'scale(0.9)', transformOrigin: '0 0' }}>
-                <TemplateComponent />
-              </div>
-              ) : (
-                <div style={{ width: '400px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                  <img width='300px' height='400px' src={noDataImage} alt="No data" />
-                  <h3>Please select a template</h3>
+             {TemplateComponent ? (
+                <div ref={componentRef} style={{ transform: 'scale(1)', transformOrigin: '0 0' }}>
+                  <TemplateComponent />
                 </div>
-              )}
-
-            <h3>Form Data:</h3>
-            <pre>{JSON.stringify(formData, null, 2)}</pre>
+             ) : (
+                 <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                    <img width='300px' height='400px' src={noDataImage} alt="No data" />
+                    <h3>Please select a template</h3>
+                 </div>
+             )}
           </Paper>
-        </Grid>
-        <Grid item xs={12} md={6} alignItems={'left'}>
-            <h3 align={'left'} margin={'10px'}>Create File Name</h3>
-            <Box
-              display="flex"
-              flexDirection={'column'}
-              justifyContent={'space-between'}
-              alignItems={'left'}
-              width={'500px'}
-              margin={'10px'}
-            >
-              <TextField style={{ width:'300px' }} />
-              <Box display="flex" flexDirection="row" justifyContent={'start'} alignContent={'center'}>
-                <Button color="primary" onClick={handleBack}>
-                  Back
-                </Button>
-                {/* <Button color="secondary" onClick={handleSave}>
-                  Save
-                </Button> */}
-                <ReactToPrint
-                  trigger={() => <Button color="secondary" onClick={handleSave}>Save</Button>}
-                  content={() => componentRef.current}
-                />
-              </Box>
+        </Box>
+        <Box width={isMobile ? '100%' : '40%'} display={'flex'} flexDirection={'column'} alignItems={isMobile ? 'center' : 'left'} height={isMobile ? 'auto' : '40vw'}>
+          <h3>Create File Name</h3>
+          <Box
+            display="flex"
+            flexDirection={'column'}
+            justifyContent={'space-between'}
+            alignItems={isMobile ? 'center' : 'left'}
+            width={'500px'}
+            margin={'10px'}
+          >
+            <TextField style={{ width:'300px' }} onChange={(e) => setFilename(e.target.value)} />
+            <Box display="flex" flexDirection="row" justifyContent={'start'} alignItems={isMobile ? 'center' : 'left'}>
+              <Button color="primary" onClick={handleBack}>
+                Back
+              </Button>
+              <ReactToPrint
+                trigger={() => <Button color="secondary" onClick={() => {alert(`Please enter "${filename}" as the filename in the print dialog.`);}}>Save</Button>}
+                content={() => componentRef.current}
+              />
             </Box>
-        </Grid>
-      </Grid>
-    </Grid>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   ) : (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+    <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="100vh">
       <img src={noDataImage} alt="No data" />
       <p>Please select a template</p>
-    </div>
+    </Box>
   );
 };
 

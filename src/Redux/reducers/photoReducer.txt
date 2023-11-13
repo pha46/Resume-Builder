@@ -10,11 +10,6 @@ const initialState = {
           ...state,
           profilePhoto: action.payload,
         };
-      case 'RESET_FORM_DATA':
-        return {
-          ...state,
-          profilePhoto: null,
-        };
       default:
         return state;
     }

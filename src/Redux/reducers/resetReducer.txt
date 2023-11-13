@@ -4,7 +4,7 @@ const initialState = {
   selectedTemplate: {},
 };
 
-export const resetR = (state = initialState, action) => {
+export const resetReducer = (state = initialState, action) => {
   switch (action.type) {
       case 'RESET_FORM_DATA':
         return {

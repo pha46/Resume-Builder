@@ -30,7 +30,7 @@ const NavBar = () => {
 
   const list = () => (
     <Box
-      sx={{ width: 250 }}
+      sx={{ width: '100%'}}
       role="presentation"
       onClick={toggleDrawer(false)}
     >
@@ -42,7 +42,6 @@ const NavBar = () => {
         ].map((item) => {
           return (
             <ListItem
-              button
               key={item.text}
               component={RouterLink}
               to={item.path}
@@ -58,7 +57,7 @@ const NavBar = () => {
 
   return (
     <>
-      <AppBar position="static" sx={{ height: '100px', backgroundColor: '#504e4e6e' }}>
+      <AppBar position="static" sx={{ height: '100px', backgroundColor: 'red' }}>
         <Toolbar
           sx={{
             display: 'flex',
@@ -83,6 +82,7 @@ const NavBar = () => {
               sx={{
                 display: `flex`,
                 justifyContent: `space-between`,
+                backgroundColor: 'transparent'
               }}
             >
               {[
@@ -92,11 +92,10 @@ const NavBar = () => {
               ].map((item) => {
                 return (
                   <ListItem
-                    button
                     key={item.text}
                     component={RouterLink}
                     to={item.path}
-                    sx={{ color: location.pathname === item.path ? '#F00037' : 'inherit', textDecoration: 'none' }}
+                    sx={{ color: location.pathname === item.path ? 'black' : 'inherit', textDecoration: 'none' }}
                   >
                     <ListItemText primary={<Typography variant="body1" align="center">{item.text}</Typography>} />
                   </ListItem>
