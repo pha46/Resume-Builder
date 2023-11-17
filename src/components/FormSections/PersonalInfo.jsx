@@ -8,18 +8,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setProfilePhoto, } from '../../Redux/actions/actions';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-// import { WidthFull } from '@mui/icons-material';
-// import { saveFormData } from '../../Redux/actions/actions';
 
 function PersonalInfo({ setPersonalInfo }) {
   
   const dispatch = useDispatch();
-  const profilePhoto = useSelector((state) => state.formData.profilePhoto);
+  const profilePhoto = useSelector((state) => state.root.profilePhoto);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
-  // const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
-  const [localData, setLocalData] = useState({});
+  const values = useSelector((state) => state.root.formData.personalInfo);
+  const [localData, setLocalData] = useState(values || {});
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -46,14 +44,14 @@ function PersonalInfo({ setPersonalInfo }) {
   }, [localData, setPersonalInfo]);
 
   return (
-    <div>
+    <>
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <h2>Personal Details</h2>
+        <h2>Personal Details</h2><hr></hr>
       </Grid>
       <Grid item xs={12} container alignItems="center" spacing={2}>
         <Grid item>
-          <Avatar alt="Profile Photo" src={profilePhoto}/>
+          <Avatar alt="Profile Photo" sx={{ width: 100, height: 100 }} src={profilePhoto}/>
         </Grid>
         <Grid item>
           {!profilePhoto && <Link component="button" variant="body2" onClick={() => document.getElementById('fileInput').click()}>Add Photo</Link>}
@@ -63,37 +61,37 @@ function PersonalInfo({ setPersonalInfo }) {
       </Grid>
 
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 3}>
-        <TextField name="firstName" onChange={handleChange} label="First Name" variant="outlined" fullWidth />
+        <TextField name="firstName" value={localData.firstName || ''} onChange={handleChange} label="First Name" variant="outlined" fullWidth />
       </Grid>
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 3}>
-        <TextField name="lastName" onChange={handleChange} label="Last Name" variant="outlined" fullWidth />
+        <TextField name="lastName" value={localData.lastName || ''} onChange={handleChange} label="Last Name" variant="outlined" fullWidth />
       </Grid>
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 3}>
-        <TextField name="email" onChange={handleChange} label="Email" variant="outlined" fullWidth />
+        <TextField name="email" value={localData.email || ''} onChange={handleChange} label="Email" variant="outlined" fullWidth />
       </Grid>
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 3}>
-        <TextField name="mobile" onChange={handleChange} label="Mobile" variant="outlined" fullWidth />
+        <TextField name="mobile" value={localData.mobile || ''} onChange={handleChange} label="Mobile" variant="outlined" fullWidth />
       </Grid>
 
       <Grid item xs={12}>
-        <TextField name="address" onChange={handleChange} label="Address" variant="outlined" fullWidth />
+        <TextField name="address" value={localData.address || ''} onChange={handleChange} label="Address" variant="outlined" fullWidth />
       </Grid>
 
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 4}>
-        <TextField name="city" onChange={handleChange} label="City" variant="outlined" fullWidth />
+        <TextField name="city" value={localData.city || ''} onChange={handleChange} label="City" variant="outlined" fullWidth />
       </Grid>
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 4}>
-        <TextField name="state" onChange={handleChange} label="State" variant="outlined" fullWidth />
+        <TextField name="state" value={localData.state || ''} onChange={handleChange} label="State" variant="outlined" fullWidth />
       </Grid>
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 4}>
-        <TextField name="postalCode" onChange={handleChange} label="Postal Code" variant="outlined" fullWidth />
+        <TextField name="postalCode" value={localData.postalCode || ''} onChange={handleChange} label="Postal Code" variant="outlined" fullWidth />
       </Grid>
 
       <Grid item xs={12}>
-        <TextField name="overview"onChange={handleChange} label="Overview" variant="outlined" multiline rows={6} fullWidth />
+        <TextField name="overview" value={localData.overview || ''} onChange={handleChange} label="Overview" variant="outlined" multiline rows={6} fullWidth />
       </Grid>
     </Grid>
-    </div>
+    </>
   );
 }
 

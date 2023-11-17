@@ -4,13 +4,13 @@ import './template1.css';
 import Avatar from '@mui/material/Avatar';
 
 const Template1 = () => {
-  const photo = useSelector(state => state.profilePhoto);
-  const personal = useSelector(state => state.formData.formData.personalInfo);
-  const experience = useSelector(state => state.formData.formData.experience);
+  const photo = useSelector(state => state.root.profilePhoto);
+  const personal = useSelector(state => state.root.formData.personalInfo);
+  const experience = useSelector(state => state.root.formData.experience);
   const experienceArray = Object.values(experience);
-  const education = useSelector(state => state.formData.formData.education);
+  const education = useSelector(state => state.root.formData.education);
   const educationArray = Object.values(education);
-  const skills = useSelector(state => state.formData.formData.skills);
+  const skills = useSelector(state => state.root.formData.skills);
 
   const getInitials = (firstName, lastName) => {
     if (!firstName || !lastName) return "";
@@ -20,7 +20,7 @@ const Template1 = () => {
   return (
     <div className='template1-container'>
       <div className="template1-sidebar">
-          {photo ? <img src={photo} alt='AVatar' /> : 
+          {photo ? <img src={photo} className='photo' alt='AVatar' /> : 
           <Avatar className='AVatar'>
             {getInitials(personal.firstName, personal.lastName)}
           </Avatar>}

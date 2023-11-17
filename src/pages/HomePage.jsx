@@ -12,6 +12,7 @@ const HomePage = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
+    <>
     <Box 
       sx={{ 
         display: 'flex', 
@@ -34,6 +35,7 @@ const HomePage = () => {
         Get Started
       </Button>
     </Box>
+    </>
   );
 };
 

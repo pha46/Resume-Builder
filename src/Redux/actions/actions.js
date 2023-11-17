@@ -13,6 +13,27 @@ export const resetFormData = () => ({
   type: 'RESET_FORM_DATA',
 });
 
+export const removeExperience  = (index) => {
+  return {
+    type: 'REMOVE_EXPERIENCE',
+    payload: index,
+  };
+};
+
+export const removeEducation = (index) => {
+  return {
+    type: 'REMOVE_EDUCATION',
+    payload: index,
+  };
+};
+
+export const removeSkills = (index) => {
+  return {
+    type: 'REMOVE_SKILLS',
+    payload: index,
+  };
+};
+
 export const SELECT_TEMPLATE = 'SELECT_TEMPLATE';
 
 export const selectTemplate = id => ({

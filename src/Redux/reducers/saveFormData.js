@@ -26,6 +26,25 @@ export const formReducer = (state = initialState, action) => {
         ...state,
         selectedTemplateID: action.payload,
       };
+
+    case 'REMOVE_EXPERIENCE':
+          const newState1 = { ...state };
+          delete newState1.formData.experience[`experience${action.payload + 1}`];
+          return newState1;
+
+    case 'REMOVE_EDUCATION':
+        const newState2 = { ...state };
+        delete newState2.formData.education[`education${action.payload + 1}`];
+        return newState2;
+    
+        case 'REMOVE_SKILLS':
+          if (state && state.skills && state.skills[action.payload]) {
+            const newState = { ...state };
+            delete newState.skills[action.payload];
+            return newState;
+          }
+          return state;
+
     case 'RESET_FORM_DATA':
       return {
         ...state,

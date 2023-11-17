@@ -30,11 +30,10 @@ function ResumeTemplate() {
   return (
     <>
     <h1>Templates</h1>
-    <p>Get started by selecting a template.</p>
+    <p className='resume-template'>Get started by selecting a template.</p>
     <div className="templates-grid">
       {templates.map(template => {
         return (
-
           <div key={template.id} className="template-item">
             <img src={template.thumbnail} alt={`Template ${template.id}`} />
             <div className="overlay">

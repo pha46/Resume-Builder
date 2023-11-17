@@ -14,6 +14,7 @@ import EducationDetails from '../components/FormSections/EducationDetails';
 import KeySkills from '../components/FormSections/KeySkills';
 import '../styles/TemplateForm.css';
 import { saveFormData } from '../Redux/actions/actions';
+import { useLocation } from 'react-router-dom';
 
 
 function TemplateForm() {
@@ -21,8 +22,11 @@ function TemplateForm() {
   const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'md'));
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+  const location = useLocation();
+  const initialTab = location.state?.activeTab || 'Personal Info';
   const tabs = ['Personal Info', 'Work Experience', 'Education', 'Key Skills'];
-  const [activeTab, setActiveTab] = useState(0);
+  const tabIndex = tabs.indexOf(initialTab);
+  const [activeTab, setActiveTab] = useState(tabIndex >= 0 ? tabIndex : 0);
   const dispatch = useDispatch();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [localData, setFormData] = useState({ 
@@ -32,14 +36,11 @@ function TemplateForm() {
     experience: {},
   });
   const navigate = useNavigate();
-  
-  // const selectedTemplateId = useSelector(state => state.templateReducer.selectedTemplate);
 
   const handleSubmit = () => {
-    // alert('A form was submitted: ');
-    // Dispatch action or perform any other logic with formData
-    navigate('/my-resume');
-    dispatch(saveFormData(localData));
+      dispatch(saveFormData(localData));
+      alert('A form was submitted: ');
+      navigate('/my-resume');
   };
 
   const goBack = () => {
@@ -51,8 +52,8 @@ function TemplateForm() {
   const goNext = () => {
     if (activeTab < tabs.length - 1) {
       setActiveTab(activeTab + 1);
+      dispatch(saveFormData(localData));
     }
-    // dispatch(saveFormData(localData));
   };
 
   const toggleDrawer = () => {
@@ -63,8 +64,6 @@ function TemplateForm() {
     width: isMobile ? '100%' : 'auto',
     margin: isMobile ? 0 : 'auto',
   };
-
-  
 
   return (
     <Grid container spacing={1} style={containerStyles}>
@@ -77,7 +76,6 @@ function TemplateForm() {
           <List>
               {tabs.map((tab, index) => (
                 <ListItem
-                  
                   key={index}
                   onClick={() => setActiveTab(index)}
                   sx={{ color: activeTab === index ? '#F00037' : 'inherit', textDecoration: 'none' }}

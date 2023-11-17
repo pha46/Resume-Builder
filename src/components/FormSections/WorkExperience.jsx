@@ -4,27 +4,37 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { removeExperience } from '../../Redux/actions/actions';
 
 function WorkExperience({ setFormData}) {
-  const [experiences, setExperiences] = useState([0]);
-  const [experienceData, setExperienceData] = useState({});
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+  const dispatch = useDispatch();
+  const experienceDataFromStore = useSelector((state) => state.root.formData.experience);
+  const [experienceData, setExperienceData] = useState(experienceDataFromStore || {});
+  const initialExperiences = experienceDataFromStore ? Object.keys(experienceDataFromStore).map((key, index) => index) : [0];
+  const [experiences, setExperiences] = useState(initialExperiences);
+
 
   const addExperience = () => {
-    setExperiences([...experiences, experiences.length]);
+    setExperiences([...experiences, {}]);
   };
 
-  const removeExperience = () => {
-    setExperiences(experiences.slice(0, -1));
-  };
+  const removeExperienceFromStateAndStore = () => {
+    const newExperiences = experiences.slice(0, -1);
+    setExperiences(newExperiences);
+    setFormData(newExperiences);
+    dispatch(removeExperience(experiences.length - 1));
+  }
 
   const handleChange = (index) => (event) => {
     const { name, value } = event.target;
     setExperienceData((data) => ({ ...data, [`experience${index + 1}`]: { ...data[`experience${index + 1}`], [name]: value } }));
   };
-  
+
   useEffect(() => {
     setFormData((prevState) => ({ ...prevState, experience: experienceData }));
   }, [experienceData, setFormData]);
@@ -32,11 +42,11 @@ function WorkExperience({ setFormData}) {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
-        <h2>Work Experience</h2>
+        <h2>Work Experience</h2><hr></hr>
       </Grid>
       {experiences.map((experience, index) => (
         <Grid item xs={12} key={index}>
-          <h3>Experience {index + 1}</h3><hr></hr>
+          <h3>Experience {index + 1}</h3><br></br>
           <Grid container spacing={2}>
             <Grid item xs={isMobile ? 12 : isTablet ? 6 : 5}>
               <TextField label="Job Title" name="jobTitle" onChange={handleChange(index)}
@@ -63,7 +73,7 @@ function WorkExperience({ setFormData}) {
       ))}
       <Grid item xs={12}>
         <Button color="primary" onClick={addExperience}>Add More</Button>
-        {experiences.length > 1 && <Button color="secondary" onClick={removeExperience}>Remove</Button>}
+        {experiences.length > 1 && <Button color="secondary" onClick={removeExperienceFromStateAndStore}>Remove</Button>}
       </Grid>
     </Grid>
   );
