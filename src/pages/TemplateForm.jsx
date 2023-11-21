@@ -16,7 +16,6 @@ import '../styles/TemplateForm.css';
 import { saveFormData } from '../Redux/actions/actions';
 import { useLocation } from 'react-router-dom';
 
-
 function TemplateForm() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'md'));
@@ -147,9 +146,31 @@ function TemplateForm() {
               </div>
             )}
             <hr></hr>
-            {activeTab > 0 && activeTab  && <button type="button" onClick={goBack}>Back</button>}
-            {activeTab < tabs.length - 1 && <button type="button" onClick={goNext}>Next</button>}
-            {activeTab === tabs.length - 1 && <input type="submit" value="Submit" onClick={handleSubmit}/>}
+            {activeTab > 0 && activeTab  && <button type="button" className='back' onClick={goBack}>Back</button>}
+            {activeTab < tabs.length - 1 && <button type="button" className='next' onClick={goNext}>Next</button>}
+            {activeTab === tabs.length - 1 && 
+              <button 
+                type="submit" 
+                className='submit' 
+                onClick={handleSubmit} 
+                style={{
+                  height: '40px',
+                  width: '100px',
+                  backgroundColor: 'blue',
+                  border: 'none',
+                  color: 'white',
+                  textAlign: 'center',
+                  textDecoration: 'none',
+                  display: 'inline-block',
+                  fontSize: '16px',
+                  margin: '4px 2px',
+                  cursor: 'pointer',
+                  lineHeight: '40px'
+                }}
+              >
+                Submit
+              </button>
+            }
         </div>
       </Grid>
     </Grid>

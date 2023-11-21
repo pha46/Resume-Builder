@@ -1,0 +1,125 @@
+.template2-container {
+  font-family: 'arial', Times, serif;
+  display: flex;
+  width: 210mm;
+  height: 297mm;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+}
+
+.template2-sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  color: #666;
+  padding: 50px 40px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.template2-skills {
+  list-style-type: square;
+  padding: 0;
+  font-size: 22px;
+}
+
+.template2-sidebar .AVatar-template2 {
+  display: flex;
+  border-radius: 50%;
+  border: 2px solid #497194;
+  width: 150px;
+  height: 150px;
+  color: white;
+  background-color: #497194;
+  align-self: center;
+  font-size: 35px;
+  text-transform: uppercase;
+  margin-bottom: 2vh;
+}
+
+.photo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 2px solid #497194;
+  overflow: hidden;
+  width: 150px;
+  height: 150px;
+}
+
+.photo-template2 {
+  width: 100%;
+}
+
+.template2-skills li {
+  display: inline-block;
+  background-color: #497194;
+  color: #ffffff;
+  padding: 10px 10px;
+  margin: 2px;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.main-content2 {
+  padding: 50px 40px;
+  width: 80%;    
+  color: #666;
+  position: relative;
+  height: 100%;
+}
+
+.main-content2::before {
+  content: "";
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border: 2px solid #497194;
+  background: #497194;
+  transform: rotate(45deg);
+}
+
+.main-content2::after {
+  content: "";
+  position: absolute;
+  top: 58px;
+  left: 4px;
+  width: 2px;
+  height: calc(100% - 216px);
+  background: #497194;
+}
+
+.main-content2 span::after {
+  content: "";
+  position: absolute;
+  bottom: 150px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border: 2px solid #497194;
+  background: #497194;
+  transform: rotate(45deg);
+}
+
+.main-content2 h2 {
+  color: #497194;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.timeline2 .orgName2,
+.timeline2 .type2 {
+  color: #333;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.timeline2 .jobTitle2,
+.timeline2 .university_collegeName2 {
+  color: rgb(194, 19, 72);
+  font-size: 18px;
+  text-transform: capitalize;
+}

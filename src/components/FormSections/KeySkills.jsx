@@ -29,7 +29,7 @@ function KeySkills({ setFormData }) {
   };
 
   useEffect(() => {
-    setFormData((prevState) => ({ ...prevState, skills: skills }));
+    setFormData(({skills: skills }));
   }, [skills, setFormData]);
 
   return (
@@ -49,7 +49,7 @@ function KeySkills({ setFormData }) {
         ))}
         <Grid item xs={12}>
           <Button color="primary" onClick={addSkill}>Add More</Button>
-          {skills.length > 2 && <Button color="secondary" onClick={removeSkillsFromStateAndStore}>Remove</Button>}
+          {skills.length > 1 && <Button color="secondary" onClick={removeSkillsFromStateAndStore}>Remove</Button>}
         </Grid>
       </Grid>
     </div>

@@ -1,27 +1,27 @@
 .template1-container {
-    font-family: Arial, sans-serif;
+    font-family: 'Times New Roman', Times, serif;
     display: flex;
     width: 210mm;
-    height: 100vh;
+    height: 297mm;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
 }
 
 .template1-sidebar {
     display: flex;
     flex-direction: column;
     width: 40%;
-    background: #f0f0f0;
-    padding: 10px;
-    height: 100vh;
-    margin: 5px;
-    font-family: 'Arial';
+    color: #666;
+    background: rgb(149, 222, 227);
+    padding: 50px 40px;
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
 
 .template1-skills {
-    word-wrap: break-word; 
-    overflow-wrap: break-word;
-    text-align: left;
+    list-style-type: square;
+    padding: 0;
+    font-size: 22px;
 }
 
 .template1-sidebar .AVatar {
@@ -30,9 +30,11 @@
     width: 150px;
     height: 150px;
     color: white;
-    background-color: #3f51b5;
+    background-color: rgb(194, 19, 72);
     align-self: center;
     font-size: 35px;
+    text-transform: uppercase;
+    margin-bottom: 2vh;
 }
 
 .template1-sidebar .photo {
@@ -42,47 +44,119 @@
     height: 150px;
     color: white;
     align-self: center;
+    font-size: 35px;
+    text-transform: uppercase;
+    margin-bottom: 2vh;
+}
+
+.template1-sidebar h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.template1-sidebar p {
+    font-size: 18px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.template1-sidebar h3 {
+    font-size: 28px;
+    color: black;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.template1-sidebar hr {
+    border: 0;
+    border-top: 2px solid #ffffff;
+    margin: 0px 0;
 }
 
 .main-content {
-    width: 60%;
-    margin: 2vh;
-    
+    padding: 50px 40px;
+    width: 60%;    
+    color: #666;
 }
 
 .main-content h2 {
-    color: #333;
-    font-family: 'Times New Roman';
+    color: #0bb5f4;
+    font-size: 35px;
+    margin-bottom: 20px;
 }
 
 .main-content p {
-    color: #666;
+    font-size: 22px;
+    margin-bottom: 20px;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    margin-right: 5%;
 }
 
 .main-content hr {
     border: 0;
-    border-top: 1px solid #f0f0f0;
+    border-top: 5px solid #b1eaff;
+    margin: 20px 0;
 }
 
 .orgName {
-    color: blue;
-    font-size: 18px;
+    color: #333;
+    font-size: 20px;
     text-transform: uppercase;
 }
 
 .jobTitle {
-    color: red;
+    color: #333;
+    font-weight: bold;
     font-size: 20px;
-    font-family: 'Book Antiqua';
     text-transform: uppercase;
 }
 
-.startYear, .endYear {
-    color: purple;
-    font-size: 16px;
-    font-family: 'Book Antiqua';
-    text-transform: uppercase;
+.type {
+    color: #333;
+    font-weight: bold;
+    font-size: 24px;
 }
+
+.startYear, .endYear {
+    color: blue;
+    font-size: 20px;
+    font-style: italic;
+}
+
+.main-content .ex,
+.main-content .ed {
+    padding-left: 40px;
+    overflow: hidden;
+}
+
+.main-content .timeline {
+    position: relative;
+    height: auto;
+  }
+
+.main-content .ex .timeline::before,
+.main-content .ed .timeline::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: -25px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    border: 2px solid #0bb5f4;
+  }
+  
+.main-content .ex .timeline::after,
+.main-content .ed .timeline::after {
+    content: "";
+    position: absolute;
+    top: 14px;
+    left: -21px;
+    width: 2px;
+    height: 100%;
+    background: #0bb5f4;
+  }

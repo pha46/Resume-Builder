@@ -40,7 +40,7 @@ function PersonalInfo({ setPersonalInfo }) {
   };
 
   useEffect(() => {
-    setPersonalInfo({ personalInfo: localData });
+    setPersonalInfo(({personalInfo: localData, }));
   }, [localData, setPersonalInfo]);
 
   return (

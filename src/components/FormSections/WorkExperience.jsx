@@ -36,7 +36,7 @@ function WorkExperience({ setFormData}) {
   };
 
   useEffect(() => {
-    setFormData((prevState) => ({ ...prevState, experience: experienceData }));
+    setFormData(({ experience: experienceData }));
   }, [experienceData, setFormData]);
 
   return (

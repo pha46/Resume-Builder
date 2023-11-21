@@ -24,10 +24,12 @@ function EducationDetails({ setFormData}) {
   };
 
   const removeEducationFromStateAndStore = () => {
-    const newEducations = educations.slice(0, -1);
-    setEducations(newEducations);
-    setFormData(newEducations);
-    dispatch(removeEducation(educations.length - 1));
+    if (educations.length > 1) {
+      const newEducations = educations.slice(0, -1);
+      setEducations(newEducations);
+      setFormData(newEducations);
+      dispatch(removeEducation(educations.length - 1));
+    }
   };
 
   const handleChange = (index) => (event) => {
@@ -36,7 +38,7 @@ function EducationDetails({ setFormData}) {
   };
 
   useEffect(() => {
-    setFormData((prevState) => ({ ...prevState, education: educationData }));
+    setFormData(({ education: educationData }));
   }, [educationData, setFormData]);
 
   return (
@@ -49,7 +51,7 @@ function EducationDetails({ setFormData}) {
           <Grid container spacing={isDesktop ? 2 : 1}>
             <Grid item xs={12}>
             <TextField
-              label="Type"
+              label="Type of Education"
               name="type"
               value={educationData[`education${index + 1}`]?.type || ''}
               onChange={handleChange(index)}
@@ -59,7 +61,7 @@ function EducationDetails({ setFormData}) {
             </Grid>
             <Grid item xs={isDesktop ? 6 : 12}>
             <TextField
-              label="university_collegeName"
+              label="University / College Name"
               name="university_collegeName"
               value={educationData[`education${index + 1}`]?.university_collegeName || ''}
               onChange={handleChange(index)}
@@ -69,7 +71,7 @@ function EducationDetails({ setFormData}) {
             </Grid>
             <Grid item xs={isDesktop ? 6 : 12}>
             <TextField
-              label="Grade_Score"
+              label="Grade / Score"
               name="Grade_Score"
               value={educationData[`education${index + 1}`]?.Grade_Score || ''}
               onChange={handleChange(index)}
@@ -79,7 +81,7 @@ function EducationDetails({ setFormData}) {
             </Grid>
             <Grid item xs={isDesktop ? 6 : 12}>
             <TextField
-              label="Start_Year"
+              label="Start Year"
               name="Start_Year"
               value={educationData[`education${index + 1}`]?.Start_Year || ''}
               onChange={handleChange(index)}
@@ -89,7 +91,7 @@ function EducationDetails({ setFormData}) {
             </Grid>
             <Grid item xs={isDesktop ? 6 : 12}>
             <TextField
-              label="End_Year"
+              label="End Year"
               name="End_Year"
               value={educationData[`education${index + 1}`]?.End_Year || ''}
               onChange={handleChange(index)}

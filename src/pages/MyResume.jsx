@@ -55,7 +55,7 @@ const MyResume = () => {
   return (!isDataEmpty && TemplateComponent) ? (
     <Box display="flex" flexDirection="column">
       <Box>
-        <h1>Resume Preview</h1><hr></hr><br></br>
+        <h1>Resume Preview</h1><br></br>
       </Box>
       <Box display="flex" flexDirection={isMobile ? 'column' : 'row'} overflow="auto">
         <Box width={isMobile ? '100%' : '60%'} height={isMobile ? 'auto' : '100vh'}>
@@ -69,11 +69,11 @@ const MyResume = () => {
             }}
             >
              {TemplateComponent ? (
-             <div ref={componentRef}>
+             <div style={{height:'100%', width:'100%'}} ref={componentRef}>
                <TemplateComponent />
              </div>
              ) : (
-                 <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                 <div style={{ width: '70%', height: '70%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     <img width='300px' height='400px' src={noDataImage} alt="No data" />
                     <h3>Please select a template</h3>
                  </div>
@@ -85,20 +85,12 @@ const MyResume = () => {
           <Box
             display="flex"
             flexDirection={'column'}
-            // justifyContent={'space-between'}
             alignItems={'center'}
-            // width={'500px'}
-            // margin={'10px'}
           >
             <TextField style={{ width:'300px' }} onChange={(e) => setFilename(e.target.value)} />
             <Box 
               display="flex" 
-              flexDirection="row" 
-              // justifyItems={'space-between'}
-              // alignItems={isMobile ? 'center' : 'left'}
-              // style={{
-              //   padding-top: '20px'
-              // }}
+              flexDirection="row"
               paddingTop={'20px'}
             >
               <Button onClick={handleBack}
@@ -116,12 +108,22 @@ const MyResume = () => {
                   height: '40px',
                   width: '100px',
                   color: 'white',
-                  backgroundColor: 'blue',
+                  backgroundColor: 'gray',
                   marginLeft:'10px',
                 }}
-                >Save</Button>}
+                >Print</Button>}
                 content={() => componentRef.current}
               />
+              <Button onClick={handleBack}
+                style={{
+                  height: '40px',
+                  width: '100px',
+                  color: 'white',
+                  backgroundColor: 'blue',
+                  marginLeft:'10px',
+                  }}>
+                Save
+              </Button>
             </Box>
           </Box>
         </Box>
