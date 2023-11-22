@@ -31,16 +31,16 @@ const Template2 = () => {
         backgroundRepeat: 'no-repeat'
       }}>
       <div className="template2-sidebar">
-      <div>
-  {photo ? 
-    <div className='photo-wrapper'>
-      <img src={photo} className='photo-template2' alt='' />
-    </div> : 
-    <Avatar className='AVatar-template2'>
-      {getInitials(personal.firstName, personal.lastName)}
-    </Avatar>
-  }
-</div>
+        <div>
+          {photo ? 
+            <div className='photo-wrapper'>
+              <img src={photo} className='photo-template2' alt='' />
+            </div> : 
+            <Avatar className='AVatar-template2'>
+              {getInitials(personal.firstName, personal.lastName)}
+            </Avatar>
+          }
+        </div>
         <div>
         <h3 style={{ color: '#497194', fontSize: '25px'}}>
           <ApiIcon style={{ color: '#497194', fontSize: '25px', verticalAlign: 'top' }} />&nbsp;SKILLS</h3>
