@@ -9,7 +9,7 @@ import backgroundImage3 from '../../assets/background3.jpg';
 
 const Template3 = () => {
   const photo = useSelector(state => state.root.profilePhoto);
-  const personal = useSelector(state => state.root.formData.personalInfo);
+  const personal = useSelector(state => state.root.formData.personalInfo) || {};
   const skills = useSelector(state => state.root.formData.skills);
   const experience = useSelector(state => state.root.formData.experience);
   const experienceArray = experience ? Object.values(experience) : [];
@@ -36,7 +36,7 @@ const Template3 = () => {
                 <img src={photo} className='photo-template3' alt='' />
               </div> : 
               <Avatar className='AVatar-template3'>
-                {getInitials(personal.firstName, personal.lastName)}
+                {getInitials(personal?.firstName, personal?.lastName)}
               </Avatar>
             }
           </div>
@@ -45,7 +45,7 @@ const Template3 = () => {
               fontSize: '40px',
               textTransform: 'uppercase',
               marginBottom: '1px',
-             }}>{personal.firstName} {personal.lastName}
+             }}>{personal?.firstName} {personal?.lastName}
             </h2>
             <p style={{marginTop:'1px'}}>
               <MailOutlineIcon style={{ color: 'rgb(185, 17, 45)', fontSize: '22px', verticalAlign: 'top' }} />&nbsp;

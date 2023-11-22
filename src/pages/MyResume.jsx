@@ -19,7 +19,7 @@ const MyResume = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
   const componentRef = useRef();
-  const formData = useSelector(state => state.root.formData);
+  const formData = useSelector(state => state.root.formData.personalInfo) || {};
   const selectedTemplateId = useSelector(state => state.root.selectedTemplateID);
   const [filename, setFilename] = useState('');
   

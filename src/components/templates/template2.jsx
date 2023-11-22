@@ -10,7 +10,7 @@ import backgroundImage from '../../assets/background.jpg';
 
 const Template2 = () => {
   const photo = useSelector(state => state.root.profilePhoto);
-  const personal = useSelector(state => state.root.formData.personalInfo);
+  const personal = useSelector(state => state.root.formData.personalInfo) || {};
   const experience = useSelector(state => state.root.formData.experience);
   const experienceArray = experience ? Object.values(experience) : [];
   const education = useSelector(state => state.root.formData.education);
@@ -37,7 +37,7 @@ const Template2 = () => {
               <img src={photo} className='photo-template2' alt='' />
             </div> : 
             <Avatar className='AVatar-template2'>
-              {getInitials(personal.firstName, personal.lastName)}
+              {getInitials(personal?.firstName, personal?.lastName)}
             </Avatar>
           }
         </div>
@@ -56,7 +56,7 @@ const Template2 = () => {
             <h2 style={{
               fontSize: '35px',
               textTransform: 'capitalize',
-             }}>{personal.firstName} {personal.lastName}</h2>
+             }}>{personal?.firstName} {personal?.lastName}</h2>
             <p>{personal.overview}</p>
             <p>
               <div>
@@ -71,9 +71,9 @@ const Template2 = () => {
                 <p className='address'>
                 <PlaceIcon style={{ color: 'rgb(185, 17, 45)', fontSize: '22px', verticalAlign: 'top' }} />&nbsp;
                   <span style={{color:'black', fontSize: '20px'}}>Address:</span> &nbsp;
-                  <span style={{color: '#666'}}>{personal.address},</span><br/>
-                  <span style={{color: '#666', paddingLeft:'120px'}}>{personal.city},</span> &nbsp;
-                  <span style={{color: '#666'}}>{personal.state},</span> &nbsp;
+                  <span style={{color: '#666'}}>{personal.address},</span>&nbsp;
+                  <span style={{color: '#666'}}>{personal.city},</span><br/>
+                  <span style={{color: '#666', paddingLeft:'115px'}}>{personal.state},</span>&nbsp;
                   <span style={{color: '#666'}}>{personal.postalCode}</span>
                 </p>
               </div>

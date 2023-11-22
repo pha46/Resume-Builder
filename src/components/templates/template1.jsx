@@ -8,7 +8,7 @@ import PlaceIcon from '@mui/icons-material/Place';
 
 const Template1 = () => {
   const photo = useSelector(state => state.root.profilePhoto);
-  const personal = useSelector(state => state.root.formData.personalInfo);
+  const personal = useSelector(state => state.root.formData.personalInfo) || {};
   const experience = useSelector(state => state.root.formData.experience);
   const experienceArray = experience ? Object.values(experience) : [];
   const education = useSelector(state => state.root.formData.education);
@@ -26,13 +26,13 @@ const Template1 = () => {
       <div className="template1-sidebar">
           {photo ? <img src={photo} className='photo' alt='AVatar' /> : 
           <Avatar className='AVatar'>
-            {getInitials(personal.firstName, personal.lastName)}
+            {getInitials(personal?.firstName, personal?.lastName)}
           </Avatar>}
-          <h2>{personal.firstName} {personal.lastName}</h2>
+          <h2>{personal?.firstName} {personal?.lastName}</h2>
           <div>
           <p>
           <PhoneIphoneIcon style={{ color: 'black', fontSize: '28px', verticalAlign: 'top' }} />&nbsp;
-            <span style={{color:'black', fontSize: '22px'}}>Phone: </span> 
+            <span style={{color:'black', fontSize: '22px'}}>Phone: </span>
             <span style={{color:'blue'}}>{personal.mobile}</span>
           </p>
           <p>
