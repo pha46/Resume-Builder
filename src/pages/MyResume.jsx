@@ -13,12 +13,14 @@ import Template2 from '../components/templates/template2';
 import Template3 from '../components/templates/template3';
 import Template4 from '../components/templates/template4';
 import ReactToPrint from 'react-to-print';
+import html2pdf from 'html2pdf.js';
 
 const MyResume = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
   const componentRef = useRef();
+  const paperRef = useRef();
   const formData = useSelector(state => state.root.formData.personalInfo) || {};
   const selectedTemplateId = useSelector(state => state.root.selectedTemplateID);
   const [filename, setFilename] = useState('');
@@ -27,10 +29,22 @@ const MyResume = () => {
     navigate('/template-form', { state: { activeTab: 'Key Skills' } });
   };
 
-  // const handleSave = () => {
-  //   // Generate a PDF file of the preview
-  //   componentRef.current.handlePrint();
-  // };
+  const handleSave = () => {
+    if (!filename) {
+      alert('Please enter a filename');
+      return;
+    }
+  
+    const opt = {
+      margin: 0,
+      filename: `${filename}.pdf`,
+      image: { type: 'jpeg', quality: 1 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+  
+    html2pdf().set(opt).from(componentRef.current).save();
+  };
 
   let TemplateComponent;
   switch (selectedTemplateId) {
@@ -59,18 +73,20 @@ const MyResume = () => {
       </Box>
       <Box display="flex" flexDirection={isMobile ? 'column' : 'row'} overflow="auto">
         <Box width={isMobile ? '100%' : '60%'} height={isMobile ? 'auto' : '100vh'}>
-            <Paper
-              style={{
-               width: '105mm',
-               height: '148.5mm',
-               border: '1px solid black',
-               margin: 'auto',
-               overflow: 'auto',
+          <Paper
+            ref={paperRef}
+            style={{
+              width: '65%',
+              height: '80%',
+              border: '1px solid black',
+              padding: '0px',
+              margin: '0px 80px',
+              overflow: 'scroll',
             }}
-            >
+          >
              {TemplateComponent ? (
-             <div style={{height:'100%', width:'100%'}} ref={componentRef}>
-               <TemplateComponent />
+             <div style={{width:'100%', height:'100%'}} ref={componentRef}>
+               <TemplateComponent/>
              </div>
              ) : (
                  <div style={{ width: '70%', height: '70%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
@@ -114,7 +130,7 @@ const MyResume = () => {
                 >Print</Button>}
                 content={() => componentRef.current}
               />
-              <Button onClick={handleBack}
+              <Button onClick={handleSave}
                 style={{
                   height: '40px',
                   width: '100px',

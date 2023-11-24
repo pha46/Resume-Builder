@@ -16,7 +16,7 @@
     flex-direction: row;
     background-color:beige;
     height: 15%;
-    padding: 5% 5% 5px 5%;
+    padding: 5% 5% 2% 5%;
     word-wrap: break-word;
     overflow-wrap: break-word;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -52,7 +52,7 @@
 
   .main-content3 {
     height: 80%;
-    margin: 1px 5% auto 5%;
+    margin: 10px 5% auto 5%;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   }
 

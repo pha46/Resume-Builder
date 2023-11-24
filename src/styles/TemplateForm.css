@@ -15,23 +15,31 @@ form {
   border-radius: 5px;
 };
 
-.submit {
+.template-form .submit-button {
   border: none; /* Remove border */
   color: white; /* White text color */
+  background-color: blue;
+  height: 40px;
+  width: 100px;
+  margin: 4px 2px;
+  line-height: 40px;
+  cursor: pointer;
   text-align: center; /* Centered text */
   text-decoration: none; /* Remove underline */
   display: inline-block;
   font-size: 16px;
+  border-radius: 5%;
 }
 
 .back,
 .next {
   height: 40px;
   width: 100px;
-  color: white;
-  background-color: gray;
+  color: dodgerblue;
+  background-color: white;
   margin-right: 10px;
-  border: none;
+  border: 1px solid dodgerblue;
+  border-radius: 5%;
   text-align: center;
   margin: 4px 2px;
   text-decoration: none;

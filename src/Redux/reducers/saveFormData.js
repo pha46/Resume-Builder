@@ -23,14 +23,26 @@ export const formReducer = (state = initialState, action) => {
         profilePhoto: action.payload,
       };
 
-    case 'SAVE_FORM_DATA':
-      return {
-        ...state,
-        formData: {
-          ...state.formData,
-          ...action.payload
-        }
-      };
+      case 'SAVE_FORM_DATA':
+        return {
+          ...state,
+          formData: {
+            ...state.formData,
+            personalInfo: {
+              ...state.formData.personalInfo,
+              ...action.payload.personalInfo
+            },
+            experience: {
+              ...state.formData.experience,
+              ...action.payload.experience
+            },
+            education: {
+              ...state.formData.education,
+              ...action.payload.education
+            },
+            skills: action.payload.skills ? action.payload.skills : state.formData.skills
+          }
+        };
 
     case 'RESET_FORM_DATA':
       return {

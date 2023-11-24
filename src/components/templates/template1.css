@@ -11,9 +11,10 @@
     display: flex;
     flex-direction: column;
     width: 40%;
+    height: 100%;
     color: #666;
     background: rgb(149, 222, 227);
-    padding: 50px 40px;
+    padding: 0px 50px 0px 50px;
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
@@ -24,7 +25,7 @@
     font-size: 22px;
 }
 
-.template1-sidebar .AVatar {
+.template1-sidebar .AVatar1 {
     display: flex;
     border-radius: 50%;
     width: 150px;
@@ -34,19 +35,25 @@
     align-self: center;
     font-size: 35px;
     text-transform: uppercase;
-    margin-bottom: 2vh;
+    margin-top: 10%;
 }
 
-.template1-sidebar .photo {
+.photo-wrapper1 {
     display: flex;
-    border-radius: 50%;
     width: 150px;
     height: 150px;
     color: white;
     align-self: center;
     font-size: 35px;
     text-transform: uppercase;
-    margin-bottom: 2vh;
+    margin-top: 10%;
+  }
+
+.template1-sidebar .photo1 {
+    width: 100%;
+    border-radius: 50%;
+    border: 5px solid;
+    border-color: #0bb5f4;
 }
 
 .template1-sidebar h2 {
@@ -78,7 +85,7 @@
 }
 
 .main-content {
-    padding: 50px 40px;
+    padding: 0px 25px 0px 25px;
     width: 60%;    
     color: #666;
 }

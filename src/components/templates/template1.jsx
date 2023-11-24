@@ -24,8 +24,11 @@ const Template1 = () => {
     <>
     <div className='template1-container'>
       <div className="template1-sidebar">
-          {photo ? <img src={photo} className='photo' alt='AVatar' /> : 
-          <Avatar className='AVatar'>
+          {photo ? 
+            <div className='photo-wrapper1'>
+              <img src={photo} className='photo1' alt='' />
+              </div> : 
+          <Avatar className='AVatar1'>
             {getInitials(personal?.firstName, personal?.lastName)}
           </Avatar>}
           <h2>{personal?.firstName} {personal?.lastName}</h2>

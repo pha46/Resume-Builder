@@ -47,7 +47,7 @@ const Template3 = () => {
               marginBottom: '1px',
              }}>{personal?.firstName} {personal?.lastName}
             </h2>
-            <p style={{marginTop:'1px'}}>
+            <div style={{marginTop:'1px'}}>
               <MailOutlineIcon style={{ color: 'rgb(185, 17, 45)', fontSize: '22px', verticalAlign: 'top' }} />&nbsp;
               <span style={{color:'blue'}}>{personal.email}</span>&nbsp;  | &nbsp;
               <PhoneIphoneIcon style={{ color: 'rgb(185, 17, 45)', fontSize: '22px', verticalAlign: 'top' }} />&nbsp;
@@ -58,7 +58,7 @@ const Template3 = () => {
                   <span style={{color: '#666', paddingLeft:'35px'}}>{personal.city},</span> &nbsp;
                   <span style={{color: '#666'}}>{personal.state},</span> &nbsp;
                   <span style={{color: '#666'}}>{personal.postalCode}</span>
-            </p>
+            </div>
           </div>
         </div>
         <div className="main-content3">
