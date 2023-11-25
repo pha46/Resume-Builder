@@ -1,0 +1,63 @@
+/* AboutUs.css */
+.about-us {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+
+.AboutHr {
+    border-top: #666 solid 1px;
+    width: 90%;
+  }
+
+.about-us h2 {
+    font-size: 2.5em;
+    color: #333;
+    margin-left: 5%;
+    margin-bottom: 1%;
+    text-align: left;
+}
+  
+  .about-us-content {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin: 5% 1% auto auto;
+  }
+  
+  .about-me {
+    width: 45%;
+    margin-left: 5%;
+  }
+  
+  .about-me p {
+    font-size: 1.8em;
+    color: #666;
+    margin: 0%;
+  }
+
+  .about-us-text {
+    text-indent: 15px;
+  }
+
+  .social-media {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 10px;
+    padding-top: 20px;
+    height: 150px;
+    width: 100%;
+  }
+  
+  .about-us-image {
+    width: 50%;
+    margin-left: 1%;
+  }
+  
+  .about-us-image img {
+    max-width: 100%;
+    max-height: 80%;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.2);
+    opacity: 80%;
+  }

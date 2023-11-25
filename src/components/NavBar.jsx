@@ -66,7 +66,7 @@ const NavBar = () => {
             justifyContent: 'space-between',
           }}
         >
-          <RouterLink to="/Resume-Builder">
+          <RouterLink to="/">
             <img src={logo} alt="Resume Builder" height="100px" />
           </RouterLink>
           {isMobile ? (

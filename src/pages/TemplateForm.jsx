@@ -1,4 +1,5 @@
 import React, { useState, } from 'react';
+import './TemplateForm.css';
 import { useTheme } from '@mui/material/styles';
 import { useDispatch} from 'react-redux';
 import { useNavigate,  } from 'react-router-dom';
@@ -13,7 +14,6 @@ import PersonalInfo from '../components/FormSections/PersonalInfo';
 import WorkExperience from '../components/FormSections/WorkExperience';
 import EducationDetails from '../components/FormSections/EducationDetails';
 import KeySkills from '../components/FormSections/KeySkills';
-import '../styles/TemplateForm.css';
 import { saveFormData } from '../Redux/actions/actions';
 import { useLocation } from 'react-router-dom';
 
@@ -172,30 +172,30 @@ function TemplateForm() {
     </Box>
         </Grid>
       )}
-      <Modal
-  open={open}
-  onClose={handleClose}
-  aria-labelledby="modal-modal-title"
-  aria-describedby="modal-modal-description"
->
-  <Box 
-    sx={{ 
-      position: 'absolute', 
-      top: '50%', 
-      left: '50%', 
-      transform: 'translate(-50%, -50%)', 
-      width: 400, 
-      bgcolor: 'background.paper', 
-      border: '1px solid blue', 
-      boxShadow: 24, 
-      p: 4 
-    }}
-  >
-    <h2 id="modal-modal-title">Required Fields Missing</h2>
-    <p id="modal-modal-description">Please fill all required fields before proceeding.</p>
-    <Button onClick={handleClose}>Close</Button>
-  </Box>
-</Modal>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box 
+            sx={{ 
+              position: 'absolute', 
+              top: '50%', 
+              left: '50%', 
+              transform: 'translate(-50%, -50%)', 
+              width: 300, 
+              bgcolor: 'background.paper', 
+              border: '1px solid blue', 
+              boxShadow: 24, 
+              p: 4 
+            }}
+          >
+            <h2 id="modal-modal-title">Required Fields Missing</h2>
+            <p id="modal-modal-description">Please fill all required fields before proceeding.</p>
+            <Button onClick={handleClose}>Close</Button>
+          </Box>
+        </Modal>
       <Grid item xs={isDesktop ? 9 : 12}>
         <div className="template-form">
             {tabs[activeTab] === 'Personal Info' && 

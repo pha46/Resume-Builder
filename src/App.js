@@ -13,13 +13,21 @@ function App() {
     <>
       <NavBar />
       <Routes>
-        <Route path="/Resume-Builder" element={<HomePage />} />
-        <Route path="/resume-template" element={<ResumeTemplate />} />
-        <Route path="/template-form" element={<TemplateForm />} />
-        <Route path="/my-resume" element={<MyResume />} />
-        <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/*" element={<ResumeRoutes />} />
       </Routes>
     </>
+  );
+}
+
+function ResumeRoutes() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/resume-template" element={<ResumeTemplate />} />
+      <Route path="/template-form" element={<TemplateForm />} />
+      <Route path="/my-resume" element={<MyResume />} />
+      <Route path="/about-us" element={<AboutUs />} />
+    </Routes>
   );
 }
 

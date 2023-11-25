@@ -73,30 +73,6 @@ const MyResume = () => {
 
   return (!isDataEmpty && TemplateComponent) ? (
     <Box display="flex" flexDirection="column">
-      <Modal
-  open={open}
-  onClose={handleClose}
-  aria-labelledby="modal-modal-title"
-  aria-describedby="modal-modal-description"
->
-  <Box 
-    sx={{ 
-      position: 'absolute', 
-      top: '50%', 
-      left: '50%', 
-      transform: 'translate(-50%, -50%)', 
-      width: 400, 
-      bgcolor: 'background.paper', 
-      border: '1px solid blue', 
-      boxShadow: 24, 
-      p: 4 
-    }}
-  >
-    <h2 id="modal-modal-title">Download Successful</h2>
-    <p id="modal-modal-description">Your file has been downloaded successfully.</p>
-    <Button onClick={handleClose}>Close</Button>
-  </Box>
-</Modal>
       <Box>
         <h1>Resume Preview</h1><br></br>
       </Box>
@@ -172,6 +148,32 @@ const MyResume = () => {
             </Box>
           </Box>
         </Box>
+      </Box>
+      <Box>
+      <Modal
+  open={open}
+  onClose={handleClose}
+  aria-labelledby="modal-modal-title"
+  aria-describedby="modal-modal-description"
+>
+  <Box 
+    sx={{ 
+      position: 'absolute', 
+      top: '50%', 
+      left: '50%', 
+      transform: 'translate(-50%, -50%)', 
+      width: 400, 
+      bgcolor: 'background.paper', 
+      border: '1px solid blue', 
+      boxShadow: 24, 
+      p: 4 
+    }}
+  >
+    <h2 id="modal-modal-title">Download Successful</h2>
+    <p id="modal-modal-description">Your file has been downloaded successfully.</p>
+    <Button onClick={handleClose}>Close</Button>
+  </Box>
+</Modal>
       </Box>
     </Box>
   ) : (
