@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './styles.css';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -8,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { removeEducation } from '../../Redux/actions/actions'; 
  
-function EducationDetails({ setFormData}) {
+function EducationDetails({ setEducationfillingData }) {
   const theme = useTheme();
   // const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
   // const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
@@ -27,7 +28,7 @@ function EducationDetails({ setFormData}) {
     if (educations.length > 1) {
       const newEducations = educations.slice(0, -1);
       setEducations(newEducations);
-      setFormData(newEducations);
+      setEducationfillingData(newEducations);
       dispatch(removeEducation(educations.length - 1));
     }
   };
@@ -38,8 +39,8 @@ function EducationDetails({ setFormData}) {
   };
 
   useEffect(() => {
-    setFormData(({ education: educationData }));
-  }, [educationData, setFormData]);
+    setEducationfillingData(({ education: educationData }));
+  }, [educationData, setEducationfillingData]);
 
   return (
     <div>
@@ -56,6 +57,7 @@ function EducationDetails({ setFormData}) {
               value={educationData[`education${index + 1}`]?.type || ''}
               onChange={handleChange(index)}
               variant="outlined"
+              required
               fullWidth
             />
             </Grid>
@@ -66,6 +68,7 @@ function EducationDetails({ setFormData}) {
               value={educationData[`education${index + 1}`]?.university_collegeName || ''}
               onChange={handleChange(index)}
               variant="outlined"
+               required
               fullWidth
             />
             </Grid>
@@ -76,6 +79,7 @@ function EducationDetails({ setFormData}) {
               value={educationData[`education${index + 1}`]?.Grade_Score || ''}
               onChange={handleChange(index)}
               variant="outlined"
+               required
               fullWidth
             />
             </Grid>
@@ -86,6 +90,7 @@ function EducationDetails({ setFormData}) {
               value={educationData[`education${index + 1}`]?.Start_Year || ''}
               onChange={handleChange(index)}
               variant="outlined"
+               required
               fullWidth
             />
             </Grid>
@@ -96,6 +101,7 @@ function EducationDetails({ setFormData}) {
               value={educationData[`education${index + 1}`]?.End_Year || ''}
               onChange={handleChange(index)}
               variant="outlined"
+               required
               fullWidth
             />
             </Grid>

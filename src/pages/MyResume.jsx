@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
 import { useSelector } from 'react-redux';
 import { useNavigate,  } from 'react-router-dom';
 import noDataImage from '../assets/nodata.png';
@@ -24,6 +25,8 @@ const MyResume = () => {
   const formData = useSelector(state => state.root.formData.personalInfo) || {};
   const selectedTemplateId = useSelector(state => state.root.selectedTemplateID);
   const [filename, setFilename] = useState('');
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
   
   const handleBack = () => {
     navigate('/template-form', { state: { activeTab: 'Key Skills' } });
@@ -43,7 +46,9 @@ const MyResume = () => {
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
   
-    html2pdf().set(opt).from(componentRef.current).save();
+    html2pdf().set(opt).from(componentRef.current).save().then(() => {
+      setOpen(true);
+    });
   };
 
   let TemplateComponent;
@@ -68,6 +73,30 @@ const MyResume = () => {
 
   return (!isDataEmpty && TemplateComponent) ? (
     <Box display="flex" flexDirection="column">
+      <Modal
+  open={open}
+  onClose={handleClose}
+  aria-labelledby="modal-modal-title"
+  aria-describedby="modal-modal-description"
+>
+  <Box 
+    sx={{ 
+      position: 'absolute', 
+      top: '50%', 
+      left: '50%', 
+      transform: 'translate(-50%, -50%)', 
+      width: 400, 
+      bgcolor: 'background.paper', 
+      border: '1px solid blue', 
+      boxShadow: 24, 
+      p: 4 
+    }}
+  >
+    <h2 id="modal-modal-title">Download Successful</h2>
+    <p id="modal-modal-description">Your file has been downloaded successfully.</p>
+    <Button onClick={handleClose}>Close</Button>
+  </Box>
+</Modal>
       <Box>
         <h1>Resume Preview</h1><br></br>
       </Box>

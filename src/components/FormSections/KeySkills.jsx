@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import './styles.css';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeSkills } from '../../Redux/actions/actions';
 
-function KeySkills({ setFormData }) {
+function KeySkills({ setKeySkillsData }) {
   const skillsDataFromStore = useSelector((state) => state.root.formData.skills);
   const initialSkills = skillsDataFromStore ? Object.values(skillsDataFromStore) : [""];
   const dispatch = useDispatch();
@@ -25,12 +26,12 @@ function KeySkills({ setFormData }) {
     const newSkills = [...skills];
     newSkills[index] = event.target.value;
     setSkills(newSkills);
-    setFormData((prevState) => ({ ...prevState, skills: newSkills }));
+    setKeySkillsData((prevState) => ({ ...prevState, skills: newSkills }));
   };
 
   useEffect(() => {
-    setFormData(({skills: skills }));
-  }, [skills, setFormData]);
+    setKeySkillsData(({skills: skills }));
+  }, [skills, setKeySkillsData]);
 
   return (
     <div>
@@ -43,6 +44,7 @@ function KeySkills({ setFormData }) {
               variant="outlined"
               value={skill}
               onChange={(event) => handleSkillChange(event, index)}
+              required
               fullWidth
             />
           </Grid>

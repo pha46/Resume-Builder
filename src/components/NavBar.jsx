@@ -1,4 +1,5 @@
 import React, { useState,  useEffect } from 'react';
+import './NavBar.css';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { AppBar, Toolbar, IconButton, List, ListItem, ListItemText, Drawer, useTheme, useMediaQuery, Box, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -57,7 +58,7 @@ const NavBar = () => {
 
   return (
     <>
-      <AppBar position="static" sx={{ height: '100px', backgroundColor: 'red' }}>
+      <AppBar position="static" className='AppBar'>
         <Toolbar
           sx={{
             display: 'flex',
@@ -65,7 +66,7 @@ const NavBar = () => {
             justifyContent: 'space-between',
           }}
         >
-          <RouterLink to="/Resume-Builder" sx={{ textDecoration: 'none', color: 'inherit' }}>
+          <RouterLink to="/Resume-Builder">
             <img src={logo} alt="Resume Builder" height="100px" />
           </RouterLink>
           {isMobile ? (

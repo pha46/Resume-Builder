@@ -1,4 +1,5 @@
 import React from 'react';
+import './Styles.css';
 import { Button, Box, Typography, useTheme, useMediaQuery } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,9 +32,12 @@ const HomePage = () => {
       <Typography variant={isMobile ? "subtitle1" : "h6"} component="div">
         Get started by selecting a template.
       </Typography>
-      <Button variant="contained" onClick={TemplateGo}>
-        Get Started
-      </Button>
+      
+        <Button className='block' variant="contained" onClick={TemplateGo}>
+          Get Started
+        </Button>
+      
+      
     </Box>
     </>
   );

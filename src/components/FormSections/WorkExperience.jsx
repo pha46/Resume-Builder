@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './styles.css';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -8,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { removeExperience } from '../../Redux/actions/actions';
 
-function WorkExperience({ setFormData}) {
+function WorkExperience({ setWorkExperienceData}) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
@@ -26,7 +27,7 @@ function WorkExperience({ setFormData}) {
   const removeExperienceFromStateAndStore = () => {
     const newExperiences = experiences.slice(0, -1);
     setExperiences(newExperiences);
-    setFormData(newExperiences);
+    setWorkExperienceData(newExperiences);
     dispatch(removeExperience(experiences.length - 1));
   }
 
@@ -36,8 +37,8 @@ function WorkExperience({ setFormData}) {
   };
 
   useEffect(() => {
-    setFormData(({ experience: experienceData }));
-  }, [experienceData, setFormData]);
+    setWorkExperienceData(({ experience: experienceData }));
+  }, [experienceData, setWorkExperienceData]);
 
   return (
     <Grid container spacing={2}>
@@ -51,22 +52,22 @@ function WorkExperience({ setFormData}) {
             <Grid item xs={isMobile ? 12 : isTablet ? 6 : 5}>
               <TextField label="Job Title" name="jobTitle" onChange={handleChange(index)}
               value={experienceData[`experience${index + 1}`]?.jobTitle || ''} 
-              variant="outlined" fullWidth />
+              variant="outlined" required fullWidth />
             </Grid>
             <Grid item xs={isMobile ? 12 : isTablet ? 6 : 5}>
               <TextField label="Organization Name" name="orgName" onChange={handleChange(index)}
               value={experienceData[`experience${index + 1}`]?.orgName || ''} 
-               variant="outlined" fullWidth />
+               variant="outlined" required fullWidth />
             </Grid>
             <Grid item xs={isMobile ? 12 : isTablet ? 6 : 5}>
               <TextField label="Start Year" name="startYear" onChange={handleChange(index)}
               value={experienceData[`experience${index + 1}`]?.startYear || ''} 
-               variant="outlined" fullWidth />
+               variant="outlined" required fullWidth />
             </Grid>
             <Grid item xs={isMobile ? 12 : isTablet ? 6 : 5}>
               <TextField label="End Year" name="endYear" onChange={handleChange(index)}
               value={experienceData[`experience${index + 1}`]?.endYear || ''} 
-               variant="outlined" fullWidth />
+               variant="outlined" required fullWidth />
             </Grid>
           </Grid>
         </Grid>

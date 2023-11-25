@@ -1,9 +1,9 @@
 const initialState = {
   formData: {
     personalInfo: null,
-    experience: {},
-    education: {},
-    skills: [],
+    experience: null,
+    education: null,
+    skills: null,
   },
   profilePhoto: null,
   selectedTemplateID: null,
@@ -32,14 +32,20 @@ export const formReducer = (state = initialState, action) => {
               ...state.formData.personalInfo,
               ...action.payload.personalInfo
             },
-            experience: {
-              ...state.formData.experience,
-              ...action.payload.experience
-            },
-            education: {
-              ...state.formData.education,
-              ...action.payload.education
-            },
+            experience: action.payload.experience
+              ? {
+                ...state.formData.experience,
+                ...action.payload.experience
+                }
+              : state.formData.experience,
+            
+            education: action.payload.education
+                ? {
+                  ...state.formData.education,
+                  ...action.payload.education
+                }
+                : state.formData.education,
+                
             skills: action.payload.skills ? action.payload.skills : state.formData.skills
           }
         };
