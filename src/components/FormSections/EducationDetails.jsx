@@ -5,14 +5,11 @@ import Grid from '@mui/material/Grid';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { removeEducation } from '../../Redux/actions/actions'; 
  
 function EducationDetails({ setEducationfillingData }) {
   const theme = useTheme();
-  // const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
-  // const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
   const dispatch = useDispatch();
   const educationDataFromStore = useSelector((state) => state.root.formData.education);
@@ -28,7 +25,10 @@ function EducationDetails({ setEducationfillingData }) {
     if (educations.length > 1) {
       const newEducations = educations.slice(0, -1);
       setEducations(newEducations);
-      setEducationfillingData(newEducations);
+      const newEducationData = { ...educationData };
+      delete newEducationData[`education${educations.length}`];
+      setEducationData(newEducationData); // Update the educationData state
+      setEducationfillingData(newEducationData); // Update the parent state
       dispatch(removeEducation(educations.length - 1));
     }
   };

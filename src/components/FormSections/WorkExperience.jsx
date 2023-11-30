@@ -28,7 +28,8 @@ function WorkExperience({ setWorkExperienceData}) {
     setExperiences(newExperiences);
     const newExperienceData = { ...experienceData };
     delete newExperienceData[`experience${experiences.length}`];
-    setWorkExperienceData(newExperiences);
+    setExperienceData(newExperienceData); // Update the experienceData state
+    setWorkExperienceData(newExperienceData); // Update the parent state
     dispatch(removeExperience(experiences.length - 1));
   }
 

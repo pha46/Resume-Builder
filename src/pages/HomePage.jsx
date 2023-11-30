@@ -5,7 +5,9 @@ import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const TemplateGo = () => { 
+
+  // Function to navigate to the resume template page
+  const navigateToResumeTemplate = () => { 
     navigate('/resume-template');
   };
 
@@ -33,7 +35,7 @@ const HomePage = () => {
         Get started by selecting a template.
       </Typography>
       
-        <Button className='block' variant="contained" onClick={TemplateGo}>
+        <Button className='block' variant="contained" onClick={navigateToResumeTemplate}>
           Get Started
         </Button>
       

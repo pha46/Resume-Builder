@@ -18,6 +18,7 @@ function PersonalInfo({ setPersonalInfo }) {
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
   const values = useSelector((state) => state.root.formData.personalInfo);
   const [localData, setLocalData] = useState(values);
+  const [errors, setErrors] = useState({});
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -36,6 +37,26 @@ function PersonalInfo({ setPersonalInfo }) {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+  
+    let errors = {};
+  
+    // Email validation
+    if (name === 'email') {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) {
+        errors.email = 'Please enter a valid email address';
+      }
+    }
+  
+    // Mobile validation
+    if (name === 'mobile') {
+      const mobileRegex = /^[0-9]{10}$/;
+      if (!mobileRegex.test(value)) {
+        errors.mobile = 'Please enter a valid mobile number';
+      }
+    }
+  
+    setErrors(errors);
     setLocalData((data) => ({ ...data, [name]: value }));
   };
 
@@ -69,10 +90,30 @@ function PersonalInfo({ setPersonalInfo }) {
         <TextField name="lastName" value={localData?.lastName || ''} onChange={handleChange} label="Last Name" variant="outlined" required fullWidth />
       </Grid>
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 3}>
-        <TextField name="email" value={localData?.email || ''} onChange={handleChange} label="Email" variant="outlined" required fullWidth />
+        <TextField 
+          name="email" 
+          value={localData?.email || ''} 
+          onChange={handleChange} 
+          label="Email" 
+          variant="outlined" 
+          required 
+          fullWidth 
+          error={!!errors.email} 
+          helperText={errors.email}
+        />
       </Grid>
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 3}>
-        <TextField name="mobile" value={localData?.mobile || ''} onChange={handleChange} label="Mobile" variant="outlined" required fullWidth />
+        <TextField 
+          name="mobile" 
+          value={localData?.mobile || ''} 
+          onChange={handleChange} 
+          label="Mobile" 
+          variant="outlined" 
+          required 
+          fullWidth 
+          error={!!errors.mobile} 
+          helperText={errors.mobile}
+        />
       </Grid>
 
       <Grid item xs={12}>
