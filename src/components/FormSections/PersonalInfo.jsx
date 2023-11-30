@@ -17,7 +17,7 @@ function PersonalInfo({ setPersonalInfo }) {
   const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
   const values = useSelector((state) => state.root.formData.personalInfo);
-  const [localData, setLocalData] = useState(values || {});
+  const [localData, setLocalData] = useState(values);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -40,7 +40,9 @@ function PersonalInfo({ setPersonalInfo }) {
   };
 
   useEffect(() => {
-    setPersonalInfo(({personalInfo: localData, }));
+    if (localData) {
+      setPersonalInfo(({personalInfo: localData, }));
+    }
   }, [localData, setPersonalInfo]);
 
   return (
@@ -61,34 +63,34 @@ function PersonalInfo({ setPersonalInfo }) {
       </Grid>
 
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 3}>
-        <TextField name="firstName" value={localData.firstName || ''} onChange={handleChange} label="First Name" variant="outlined" required fullWidth />
+        <TextField name="firstName" value={localData?.firstName || ''} onChange={handleChange} label="First Name" variant="outlined" required fullWidth />
       </Grid>
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 3}>
-        <TextField name="lastName" value={localData.lastName || ''} onChange={handleChange} label="Last Name" variant="outlined" required fullWidth />
+        <TextField name="lastName" value={localData?.lastName || ''} onChange={handleChange} label="Last Name" variant="outlined" required fullWidth />
       </Grid>
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 3}>
-        <TextField name="email" value={localData.email || ''} onChange={handleChange} label="Email" variant="outlined" required fullWidth />
+        <TextField name="email" value={localData?.email || ''} onChange={handleChange} label="Email" variant="outlined" required fullWidth />
       </Grid>
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 3}>
-        <TextField name="mobile" value={localData.mobile || ''} onChange={handleChange} label="Mobile" variant="outlined" required fullWidth />
+        <TextField name="mobile" value={localData?.mobile || ''} onChange={handleChange} label="Mobile" variant="outlined" required fullWidth />
       </Grid>
 
       <Grid item xs={12}>
-        <TextField name="address" value={localData.address || ''} onChange={handleChange} label="Address" variant="outlined" required fullWidth />
+        <TextField name="address" value={localData?.address || ''} onChange={handleChange} label="Address" variant="outlined" required fullWidth />
       </Grid>
 
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 4}>
-        <TextField name="city" value={localData.city || ''} onChange={handleChange} label="City" variant="outlined" fullWidth />
+        <TextField name="city" value={localData?.city || ''} onChange={handleChange} label="City" variant="outlined" fullWidth />
       </Grid>
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 4}>
-        <TextField name="state" value={localData.state || ''} onChange={handleChange} label="State" variant="outlined" fullWidth />
+        <TextField name="state" value={localData?.state || ''} onChange={handleChange} label="State" variant="outlined" fullWidth />
       </Grid>
       <Grid item xs={isMobile ? 12 : isTablet ? 6 : 4}>
-        <TextField name="postalCode" value={localData.postalCode || ''} onChange={handleChange} label="Postal Code" variant="outlined" fullWidth />
+        <TextField name="postalCode" value={localData?.postalCode || ''} onChange={handleChange} label="Postal Code" variant="outlined" fullWidth />
       </Grid>
 
       <Grid item xs={12}>
-        <TextField name="overview" value={localData.overview || ''} onChange={handleChange} label="Overview" variant="outlined" multiline rows={6} required fullWidth />
+        <TextField name="overview" value={localData?.overview || ''} onChange={handleChange} label="Overview" variant="outlined" multiline rows={6} required fullWidth />
       </Grid>
     </Grid>
     </>

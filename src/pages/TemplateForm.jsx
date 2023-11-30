@@ -1,4 +1,4 @@
-import React, { useState, } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './TemplateForm.css';
 import { useTheme } from '@mui/material/styles';
 import { useDispatch} from 'react-redux';
@@ -16,6 +16,7 @@ import EducationDetails from '../components/FormSections/EducationDetails';
 import KeySkills from '../components/FormSections/KeySkills';
 import { saveFormData } from '../Redux/actions/actions';
 import { useLocation } from 'react-router-dom';
+import { resetFormData } from '../Redux/actions/actions';
 
 function TemplateForm() {
   const theme = useTheme();
@@ -39,11 +40,21 @@ function TemplateForm() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
+  const isSubmitted = useRef(false);
+  
+  useEffect(() => {
+    return () => {
+      if (!isSubmitted.current) {
+        dispatch(resetFormData()); // reset data in Redux store
+      }
+    };
+  }, [location, dispatch]);
 
   const handleSubmit = () => {
-      dispatch(saveFormData(localD));
-      alert('Submitted');
-      navigate('/my-resume');
+    dispatch(saveFormData(localD));
+    alert('Submitted');
+    isSubmitted.current = true; // Set isSubmitted to true after submitting
+    navigate('/my-resume');
   };
 
   const goBack = () => {
@@ -52,11 +63,49 @@ function TemplateForm() {
     }
   };
 
+  const checkCanGoNext = (tabIndex) => {
+    let canGo = true;
+    switch (tabs[tabIndex]) {
+      case 'Personal Info':
+        const { firstName, lastName, email, mobile, address, overview } = localData.personalInfo;
+        if (!firstName || !lastName || !email || !mobile || !address || !overview) {
+          canGo = false;
+        }
+        break;
+      case 'Work Experience':
+        if (localData.experience) {
+          Object.keys(localData.experience).forEach((key) => {
+            const { jobTitle, orgName, startYear, endYear } = localData.experience[key];
+            if (!jobTitle || !orgName || !startYear || !endYear ) {
+              canGo = false;
+            }
+          });
+        } else {
+          canGo = false;
+        }
+        break;
+      case 'Education':
+        if (localData.education) {
+          Object.keys(localData.education).forEach((key) => {
+            const { type, university_collegeName, Start_Year, End_Year } = localData.education[key];
+            if (!type || !university_collegeName || !Start_Year || !End_Year ) {
+              canGo = false;
+            }
+          });
+        } else {
+          canGo = false;
+        }
+        break;
+      default:
+        break;
+    }
+    return canGo;
+  };
+  
   const goNext = () => {
     if (activeTab < tabs.length - 1) {
       let canGoNext = true;
   
-      // Check if required fields are filled based on the active tab
       switch (tabs[activeTab]) {
         case 'Personal Info':
           const { firstName, lastName, email, mobile, address, overview } = localData.personalInfo;
@@ -64,27 +113,30 @@ function TemplateForm() {
             canGoNext = false;
           }
           break;
-          case 'Work Experience':
-            if (localData.experience) {
-              Object.keys(localData.experience).forEach((key) => {
-                const { jobTitle, orgName, startYear, endYear } = localData.experience[key];
-                if (!jobTitle || !orgName || !startYear || !endYear ) {
-                  canGoNext = false;
-                }
-              });
-            }
-            break;
-
-            case 'Education':
-            if (localData.education) {
-              Object.keys(localData.education).forEach((key) => {
-                const { type, university_collegeName, Start_Year, End_Year } = localData.education[key];
-                if (!type || !university_collegeName || !Start_Year || !End_Year ) {
-                  canGoNext = false;
-                }
-              });
-            }
-            break;
+        case 'Work Experience':
+          if (localData.experience) {
+            Object.keys(localData.experience).forEach((key) => {
+              const { jobTitle, orgName, startYear, endYear } = localData.experience[key];
+              if (!jobTitle || !orgName || !startYear || !endYear ) {
+                canGoNext = false;
+              }
+            });
+          } else {
+            canGoNext = false;
+          }
+          break;
+        case 'Education':
+          if (localData.education) {
+            Object.keys(localData.education).forEach((key) => {
+              const { type, university_collegeName, Start_Year, End_Year } = localData.education[key];
+              if (!type || !university_collegeName || !Start_Year || !End_Year ) {
+                canGoNext = false;
+              }
+            });
+          } else {
+            canGoNext = false;
+          }
+          break;
         default:
           break;
       }
@@ -119,7 +171,18 @@ function TemplateForm() {
               {tabs.map((tab, index) => (
                 <ListItem
                   key={index}
-                  onClick={() => setActiveTab(index)}
+                  onClick={() => {
+                    if (index > activeTab) {
+                      if (checkCanGoNext(activeTab)) {
+                        setActiveTab(index);
+                        dispatch(saveFormData(localData));
+                      } else {
+                        setOpen(true);
+                      }
+                    } else {
+                      setActiveTab(index);
+                    }
+                  }}
                   sx={{ color: activeTab === index ? '#F00037' : 'inherit', textDecoration: 'none' }}
                 >
                   <ListItemText primary={<Typography variant="body1">{tab}</Typography>} />
@@ -148,7 +211,18 @@ function TemplateForm() {
         <Box
           component="button"
           key={index}
-          onClick={() => setActiveTab(index)}
+          onClick={() => {
+            if (index > activeTab) {
+              if (checkCanGoNext(activeTab)) {
+                setActiveTab(index);
+                dispatch(saveFormData(localData));
+              } else {
+                setOpen(true);
+              }
+            } else {
+              setActiveTab(index);
+            }
+          }}
           sx={{
             background: 'none',
             border: 'none',
@@ -186,7 +260,8 @@ function TemplateForm() {
               transform: 'translate(-50%, -50%)', 
               width: 300, 
               bgcolor: 'background.paper', 
-              border: '1px solid blue', 
+              border: 'none',
+              borderRadius: 2,
               boxShadow: 24, 
               p: 4 
             }}
@@ -196,6 +271,7 @@ function TemplateForm() {
             <Button onClick={handleClose}>Close</Button>
           </Box>
         </Modal>
+        
       <Grid item xs={isDesktop ? 9 : 12}>
         <div className="template-form">
             {tabs[activeTab] === 'Personal Info' && 

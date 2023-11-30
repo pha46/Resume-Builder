@@ -15,10 +15,9 @@ function WorkExperience({ setWorkExperienceData}) {
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
   const dispatch = useDispatch();
   const experienceDataFromStore = useSelector((state) => state.root.formData.experience);
-  const [experienceData, setExperienceData] = useState(experienceDataFromStore || {});
+  const [experienceData, setExperienceData] = useState(experienceDataFromStore);
   const initialExperiences = experienceDataFromStore ? Object.keys(experienceDataFromStore).map((key, index) => index) : [0];
   const [experiences, setExperiences] = useState(initialExperiences);
-
 
   const addExperience = () => {
     setExperiences([...experiences, {}]);
@@ -27,17 +26,25 @@ function WorkExperience({ setWorkExperienceData}) {
   const removeExperienceFromStateAndStore = () => {
     const newExperiences = experiences.slice(0, -1);
     setExperiences(newExperiences);
+    const newExperienceData = { ...experienceData };
+    delete newExperienceData[`experience${experiences.length}`];
     setWorkExperienceData(newExperiences);
     dispatch(removeExperience(experiences.length - 1));
   }
 
   const handleChange = (index) => (event) => {
     const { name, value } = event.target;
-    setExperienceData((data) => ({ ...data, [`experience${index + 1}`]: { ...data[`experience${index + 1}`], [name]: value } }));
+    if (experienceData) {
+      setExperienceData((data) => ({ ...data, [`experience${index + 1}`]: { ...data[`experience${index + 1}`], [name]: value } }));
+    } else {
+      setExperienceData({ [`experience${index + 1}`]: { [name]: value } });
+    }
   };
 
   useEffect(() => {
-    setWorkExperienceData(({ experience: experienceData }));
+    if (experienceData) {
+      setWorkExperienceData(({ experience: experienceData }));
+    }
   }, [experienceData, setWorkExperienceData]);
 
   return (
@@ -51,22 +58,22 @@ function WorkExperience({ setWorkExperienceData}) {
           <Grid container spacing={2}>
             <Grid item xs={isMobile ? 12 : isTablet ? 6 : 5}>
               <TextField label="Job Title" name="jobTitle" onChange={handleChange(index)}
-              value={experienceData[`experience${index + 1}`]?.jobTitle || ''} 
+              value={experienceData?.[`experience${index + 1}`]?.jobTitle || ''} 
               variant="outlined" required fullWidth />
             </Grid>
             <Grid item xs={isMobile ? 12 : isTablet ? 6 : 5}>
               <TextField label="Organization Name" name="orgName" onChange={handleChange(index)}
-              value={experienceData[`experience${index + 1}`]?.orgName || ''} 
+              value={experienceData?.[`experience${index + 1}`]?.orgName || ''} 
                variant="outlined" required fullWidth />
             </Grid>
             <Grid item xs={isMobile ? 12 : isTablet ? 6 : 5}>
               <TextField label="Start Year" name="startYear" onChange={handleChange(index)}
-              value={experienceData[`experience${index + 1}`]?.startYear || ''} 
+              value={experienceData?.[`experience${index + 1}`]?.startYear || ''} 
                variant="outlined" required fullWidth />
             </Grid>
             <Grid item xs={isMobile ? 12 : isTablet ? 6 : 5}>
               <TextField label="End Year" name="endYear" onChange={handleChange(index)}
-              value={experienceData[`experience${index + 1}`]?.endYear || ''} 
+              value={experienceData?.[`experience${index + 1}`]?.endYear || ''} 
                variant="outlined" required fullWidth />
             </Grid>
           </Grid>

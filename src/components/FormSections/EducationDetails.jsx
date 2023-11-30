@@ -16,7 +16,7 @@ function EducationDetails({ setEducationfillingData }) {
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
   const dispatch = useDispatch();
   const educationDataFromStore = useSelector((state) => state.root.formData.education);
-  const [educationData, setEducationData] = useState(educationDataFromStore || {});
+  const [educationData, setEducationData] = useState(educationDataFromStore);
   const initialEducations = educationDataFromStore ? Object.keys(educationDataFromStore).map((key, index) => index) : [0];
   const [educations, setEducations] = useState(initialEducations);
 
@@ -35,11 +35,17 @@ function EducationDetails({ setEducationfillingData }) {
 
   const handleChange = (index) => (event) => {
     const { name, value } = event.target;
-    setEducationData((data) => ({ ...data, [`education${index + 1}`]: { ...data[`education${index + 1}`], [name]: value } }));
+    if (educationData) {
+      setEducationData((data) => ({ ...data, [`education${index + 1}`]: { ...data[`education${index + 1}`], [name]: value } }));
+    } else {
+      setEducationData({ [`education${index + 1}`]: { [name]: value } });
+    }
   };
 
   useEffect(() => {
-    setEducationfillingData(({ education: educationData }));
+    if (educationData) {
+      setEducationfillingData(({ education: educationData }));
+    }
   }, [educationData, setEducationfillingData]);
 
   return (
@@ -54,7 +60,7 @@ function EducationDetails({ setEducationfillingData }) {
             <TextField
               label="Type of Education"
               name="type"
-              value={educationData[`education${index + 1}`]?.type || ''}
+              value={educationData?.[`education${index + 1}`]?.type || ''}
               onChange={handleChange(index)}
               variant="outlined"
               required
@@ -65,7 +71,7 @@ function EducationDetails({ setEducationfillingData }) {
             <TextField
               label="University / College Name"
               name="university_collegeName"
-              value={educationData[`education${index + 1}`]?.university_collegeName || ''}
+              value={educationData?.[`education${index + 1}`]?.university_collegeName || ''}
               onChange={handleChange(index)}
               variant="outlined"
                required
@@ -76,7 +82,7 @@ function EducationDetails({ setEducationfillingData }) {
             <TextField
               label="Grade / Score"
               name="Grade_Score"
-              value={educationData[`education${index + 1}`]?.Grade_Score || ''}
+              value={educationData?.[`education${index + 1}`]?.Grade_Score || ''}
               onChange={handleChange(index)}
               variant="outlined"
                required
@@ -87,7 +93,7 @@ function EducationDetails({ setEducationfillingData }) {
             <TextField
               label="Start Year"
               name="Start_Year"
-              value={educationData[`education${index + 1}`]?.Start_Year || ''}
+              value={educationData?.[`education${index + 1}`]?.Start_Year || ''}
               onChange={handleChange(index)}
               variant="outlined"
                required
@@ -98,7 +104,7 @@ function EducationDetails({ setEducationfillingData }) {
             <TextField
               label="End Year"
               name="End_Year"
-              value={educationData[`education${index + 1}`]?.End_Year || ''}
+              value={educationData?.[`education${index + 1}`]?.End_Year || ''}
               onChange={handleChange(index)}
               variant="outlined"
                required

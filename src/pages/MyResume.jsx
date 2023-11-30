@@ -77,15 +77,15 @@ const MyResume = () => {
         <h1>Resume Preview</h1><br></br>
       </Box>
       <Box display="flex" flexDirection={isMobile ? 'column' : 'row'} overflow="auto">
-        <Box width={isMobile ? '100%' : '60%'} height={isMobile ? 'auto' : '100vh'}>
+        <Box width={isMobile ? '100%' : '60%'} height={isMobile ? '800px' : '100vh'}>
           <Paper
             ref={paperRef}
             style={{
-              width: '65%',
+              width: isMobile ? '90%':'65%',
               height: '80%',
               border: '1px solid black',
               padding: '0px',
-              margin: '0px 80px',
+              margin: isMobile? '1%':'0px 80px',
               overflow: 'scroll',
             }}
           >
