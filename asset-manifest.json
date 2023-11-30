@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Resume-Builder/static/css/main.d0dbc3f1.css",
-    "main.js": "/Resume-Builder/static/js/main.1551bd83.js",
+    "main.js": "/Resume-Builder/static/js/main.deb5620c.js",
     "static/js/703.6456485d.chunk.js": "/Resume-Builder/static/js/703.6456485d.chunk.js",
     "static/js/258.2d8a5b7a.chunk.js": "/Resume-Builder/static/js/258.2d8a5b7a.chunk.js",
     "static/js/787.61b62c3a.chunk.js": "/Resume-Builder/static/js/787.61b62c3a.chunk.js",
@@ -16,13 +16,13 @@
     "static/media/logo.svg": "/Resume-Builder/static/media/logo.f9f2830dbbd00ec7b17f968e876382e9.svg",
     "index.html": "/Resume-Builder/index.html",
     "main.d0dbc3f1.css.map": "/Resume-Builder/static/css/main.d0dbc3f1.css.map",
-    "main.1551bd83.js.map": "/Resume-Builder/static/js/main.1551bd83.js.map",
+    "main.deb5620c.js.map": "/Resume-Builder/static/js/main.deb5620c.js.map",
     "703.6456485d.chunk.js.map": "/Resume-Builder/static/js/703.6456485d.chunk.js.map",
     "258.2d8a5b7a.chunk.js.map": "/Resume-Builder/static/js/258.2d8a5b7a.chunk.js.map",
     "787.61b62c3a.chunk.js.map": "/Resume-Builder/static/js/787.61b62c3a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d0dbc3f1.css",
-    "static/js/main.1551bd83.js"
+    "static/js/main.deb5620c.js"
   ]
 }
