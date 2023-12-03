@@ -5,10 +5,11 @@ import Avatar from '@mui/material/Avatar';
 import Link from '@mui/material/Link';
 import './styles.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { setProfilePhoto, } from '../../Redux/actions/actions';
+import { setProfilePhoto } from '../../Redux/actions/actions';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
+// PersonalInfo component for managing personal information
 function PersonalInfo({ setPersonalInfo }) {
   
   const dispatch = useDispatch();
@@ -17,9 +18,12 @@ function PersonalInfo({ setPersonalInfo }) {
   const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
   const values = useSelector((state) => state.root.formData.personalInfo);
+
+  // Using React's useState hook for local state management
   const [localData, setLocalData] = useState(values);
   const [errors, setErrors] = useState({});
 
+  // Function to handle file change event
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -31,10 +35,12 @@ function PersonalInfo({ setPersonalInfo }) {
     }
   };
 
+  // Function to handle remove photo event
   const handleRemovePhoto = () => {
     dispatch(setProfilePhoto(null));
   };
 
+  // Function to handle change event of input fields
   const handleChange = (event) => {
     const { name, value } = event.target;
   
@@ -60,6 +66,7 @@ function PersonalInfo({ setPersonalInfo }) {
     setLocalData((data) => ({ ...data, [name]: value }));
   };
 
+  // Using React's useEffect hook to update personal info when localData changes
   useEffect(() => {
     if (localData) {
       setPersonalInfo(({personalInfo: localData, }));
@@ -138,4 +145,4 @@ function PersonalInfo({ setPersonalInfo }) {
   );
 }
 
-export default PersonalInfo;
+export default React.memo(PersonalInfo); // Using React.memo to prevent unnecessary re-renders

@@ -8,14 +8,22 @@ import PlaceIcon from '@mui/icons-material/Place';
 import backgroundImage3 from '../../assets/background3.jpg';
 
 const Template3 = () => {
+  // use Redux state in the component
   const photo = useSelector(state => state.root.profilePhoto);
   const personal = useSelector(state => state.root.formData.personalInfo) || {};
-  const skills = useSelector(state => state.root.formData.skills);
+
+  // selector for experience array
   const experience = useSelector(state => state.root.formData.experience);
   const experienceArray = experience ? Object.values(experience) : [];
+
+  // selector for education array
   const education = useSelector(state => state.root.formData.education);
   const educationArray = education ? Object.values(education) : [];
 
+  // selector for skills object
+  const skills = useSelector(state => state.root.formData.skills);
+
+  // function to get initials from user's first name and last name
   const getInitials = (firstName, lastName) => {
     if (!firstName || !lastName) return "";
     return `${firstName[0]}${lastName[0]}`;
@@ -30,7 +38,7 @@ const Template3 = () => {
         backgroundRepeat: 'no-repeat'
       }}>
         <div className="template3-top">
-          <div>
+          <div style={{alignSelf:'center'}}>
             {photo ? 
               <div className='photo-wrapper3'>
                 <img src={photo} className='photo-template3' alt='' />
@@ -79,13 +87,11 @@ const Template3 = () => {
               width: '30%', 
               }} className='left-side3'><p>SKILLS</p></div>
             <div style={{paddingLeft:'5%', width: '70%'}} className='right-side3'>
-              <p>
-                <ul style={{ textTransform:'capitalize', paddingInlineStart: '20px' }} className="template3-skills">
-                  {(skills ? Object.values(skills) : []).map((skill) => (
-                    <li key={skill}>{skill}</li>
-                  ))}
-                </ul>
-              </p>
+              <ul style={{ textTransform:'capitalize', paddingInlineStart: '20px' }} className="template3-skills">
+                {(skills ? Object.values(skills) : []).map((skill) => (
+                  <li key={skill}>{skill}</li>
+                ))}
+              </ul>
             </div>
             <div></div>
           </div><hr></hr>
@@ -97,18 +103,16 @@ const Template3 = () => {
               width: '30%', 
               }} className='left-side3'><p>EXPERIENCE</p>
               </div>
-            <div style={{paddingLeft:'5%', width: '70%'}} className='right-side3'>
-              <p>
+              <div style={{paddingLeft:'5%', width: '70%'}} className='right-side3'>
                 {experienceArray.map((job, index) => (
-                  <p key={index} className='timeline3'>
+                  <div key={index} className='timeline3'>
                     <span className="orgName3">{job.orgName}</span><br/>
                     <span className="jobTitle3">{job.jobTitle}</span><br/>
                     <span style={{color:'#497194'}} className="startYear3">{job.startYear}</span>&nbsp;-&nbsp;
                     <span style={{color:'#497194'}} className="endYear3">{job.endYear}</span>
-                  </p>
+                  </div>
                 ))}
-              </p>
-            </div>
+              </div>
           </div><hr></hr>
           <div style={{display: 'flex', flexDirection: 'row'}} className='education3'>
             <div style={{
@@ -119,18 +123,16 @@ const Template3 = () => {
               }} className='left-side3'><p>EDUCATION</p>
             </div>
             <div style={{paddingLeft:'5%', width: '70%'}} className='right-side3'>
-              <p>
-                {educationArray.map((edu, index) => (
-                  <p key={index} className='timeline3'>
-                      <span className="type3">{edu.type}</span><br/>
-                      <span className="university_collegeName3">{edu.university_collegeName}</span><br/>
-                      <span className="Grade_Score3">{edu.Grade_Score}</span><br/>
-                      <span style={{color:'#497194'}} className="startYear3">{edu.Start_Year}</span>&nbsp;-&nbsp;
-                      <span style={{color:'#497194'}} className="endYear3">{edu.End_Year}</span>
-                  </p>
-                ))}
-              </p>
-            </div> 
+              {educationArray.map((edu, index) => (
+                <div key={index} className='timeline3'>
+                  <span className="type3">{edu.type}</span><br/>
+                  <span className="university_collegeName3">{edu.university_collegeName}</span><br/>
+                  <span className="Grade_Score3">{edu.Grade_Score}</span><br/>
+                  <span style={{color:'#497194'}} className="startYear3">{edu.Start_Year}</span>&nbsp;-&nbsp;
+                  <span style={{color:'#497194'}} className="endYear3">{edu.End_Year}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

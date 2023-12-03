@@ -1,20 +1,29 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'; // import useSelector hook from redux
 import './template1.css';
-import Avatar from '@mui/material/Avatar';
+import Avatar from '@mui/material/Avatar'; // import avatar from Material UI
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PlaceIcon from '@mui/icons-material/Place';
 
+// The following is a functional component named Template1
 const Template1 = () => {
+  // use Redux state in the component
   const photo = useSelector(state => state.root.profilePhoto);
   const personal = useSelector(state => state.root.formData.personalInfo) || {};
+
+  // selector for experience array
   const experience = useSelector(state => state.root.formData.experience);
   const experienceArray = experience ? Object.values(experience) : [];
+
+  // selector for education array
   const education = useSelector(state => state.root.formData.education);
   const educationArray = education ? Object.values(education) : [];
+
+  // selector for skills object
   const skills = useSelector(state => state.root.formData.skills);
 
+  // function to get initials from user's first name and last name
   const getInitials = (firstName, lastName) => {
     if (!firstName || !lastName) return "";
     return `${firstName[0]}${lastName[0]}`;
@@ -64,7 +73,7 @@ const Template1 = () => {
             ))}
           </ul>
       </div>
-      <div className="main-content">
+      <div className="main-content1">
           <div className='su'>
             <h2 style={{color:'#0bb5f4'}}>Summary:</h2>
             <p>{personal.overview}</p>

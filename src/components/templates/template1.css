@@ -2,9 +2,9 @@
     font-family: 'Times New Roman', Times, serif;
     display: flex;
     width: 210mm;
-    height: 297mm;
+    height: 296mm;
     background-color: #ffffff;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    margin: 0;
 }
 
 .template1-sidebar {
@@ -84,26 +84,26 @@
     margin: 0px 0;
 }
 
-.main-content {
+.main-content1 {
     padding: 0px 25px 0px 25px;
     width: 60%;    
     color: #666;
 }
 
-.main-content h2 {
+.main-content1 h2 {
     color: #0bb5f4;
     font-size: 35px;
     margin-bottom: 20px;
 }
 
-.main-content p {
+.main-content1 p {
     font-size: 22px;
     margin-bottom: 20px;
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
 
-.main-content hr {
+.main-content1 hr {
     border: 0;
     border-top: 5px solid #b1eaff;
     margin: 20px 0;
@@ -134,19 +134,19 @@
     font-style: italic;
 }
 
-.main-content .ex,
-.main-content .ed {
+.main-content1 .ex,
+.main-content1 .ed {
     padding-left: 40px;
     overflow: hidden;
 }
 
-.main-content .timeline {
+.main-content1 .timeline {
     position: relative;
     height: auto;
   }
 
-.main-content .ex .timeline::before,
-.main-content .ed .timeline::before {
+.main-content1 .ex .timeline::before,
+.main-content1 .ed .timeline::before {
     content: "";
     position: absolute;
     top: 5px;
@@ -157,8 +157,8 @@
     border: 2px solid #0bb5f4;
   }
   
-.main-content .ex .timeline::after,
-.main-content .ed .timeline::after {
+.main-content1 .ex .timeline::after,
+.main-content1 .ed .timeline::after {
     content: "";
     position: absolute;
     top: 14px;

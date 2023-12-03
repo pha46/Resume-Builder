@@ -1,34 +1,36 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import './TemplateForm.css';
-import { useTheme } from '@mui/material/styles';
-import { useDispatch} from 'react-redux';
-import { useNavigate,  } from 'react-router-dom';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
+import { useDispatch } from 'react-redux';
+import { saveFormData } from '../Redux/actions/actions';
+import { useNavigate, useLocation } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
-import Drawer from '@mui/material/Drawer';
-import Modal from '@mui/material/Modal';
-import { List, ListItem, ListItemText, Typography, Box, Button } from '@mui/material';
+import { useTheme, useMediaQuery, Grid, IconButton, Drawer, Modal, List, ListItem, ListItemText, Typography, Box, Button  } from '@mui/material';
 import PersonalInfo from '../components/FormSections/PersonalInfo';
 import WorkExperience from '../components/FormSections/WorkExperience';
 import EducationDetails from '../components/FormSections/EducationDetails';
 import KeySkills from '../components/FormSections/KeySkills';
-import { saveFormData } from '../Redux/actions/actions';
-import { useLocation } from 'react-router-dom';
-import { resetFormData } from '../Redux/actions/actions';
 
 function TemplateForm() {
+  // Using hooks for theme and media queries
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'md'));
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+
+  // Using hooks for navigation and location
   const location = useLocation();
+  const navigate = useNavigate();
+
+  // Using hooks for Redux dispatch
+  const dispatch = useDispatch();
+
+  // Setting initial tab
   const initialTab = location.state?.activeTab || 'Personal Info';
   const tabs = ['Personal Info', 'Work Experience', 'Education', 'Key Skills'];
   const tabIndex = tabs.indexOf(initialTab);
+
+  // Using hooks for state management
   const [activeTab, setActiveTab] = useState(tabIndex >= 0 ? tabIndex : 0);
-  const dispatch = useDispatch();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [localData, setFormData] = useState({ 
     personalInfo: {}, 
@@ -36,33 +38,35 @@ function TemplateForm() {
     experience: {},
   });
   const [localD, skilld] = useState({
-    skills: [],})
-  const navigate = useNavigate();
+    skills: [],
+  });
   const [open, setOpen] = useState(false);
+
+  // Function to handle modal close
   const handleClose = () => setOpen(false);
-  const isSubmitted = useRef(false);
-  
-  useEffect(() => {
-    return () => {
-      if (!isSubmitted.current) {
-        dispatch(resetFormData()); // reset data in Redux store
-      }
-    };
-  }, [location, dispatch]);
 
-  const handleSubmit = () => {
-    dispatch(saveFormData(localD));
-    alert('Submitted');
-    isSubmitted.current = true; // Set isSubmitted to true after submitting
-    navigate('/my-resume');
-  };
-
+  // Function to navigate back
   const goBack = () => {
     if (activeTab > 0) {
       setActiveTab(activeTab - 1);
     }
   };
 
+  // Function to navigate to next tab
+  const goNext = () => {
+    if (activeTab < tabs.length - 1) {
+      const canGoNext = checkCanGoNext(activeTab);
+    
+      if (canGoNext) {
+        setActiveTab(activeTab + 1);
+        dispatch(saveFormData(localData));
+      } else {
+        setOpen(true);
+      }
+    }
+  };
+  
+  // Function to check if we can navigate to next tab
   const checkCanGoNext = (tabIndex) => {
     let canGo = true;
     switch (tabs[tabIndex]) {
@@ -101,77 +105,43 @@ function TemplateForm() {
     }
     return canGo;
   };
-  
-  const goNext = () => {
-    if (activeTab < tabs.length - 1) {
-      let canGoNext = true;
-  
-      switch (tabs[activeTab]) {
-        case 'Personal Info':
-          const { firstName, lastName, email, mobile, address, overview } = localData.personalInfo;
-          if (!firstName || !lastName || !email || !mobile || !address || !overview) {
-            canGoNext = false;
-          }
-          break;
-        case 'Work Experience':
-          if (localData.experience) {
-            Object.keys(localData.experience).forEach((key) => {
-              const { jobTitle, orgName, startYear, endYear } = localData.experience[key];
-              if (!jobTitle || !orgName || !startYear || !endYear ) {
-                canGoNext = false;
-              }
-            });
-          } else {
-            canGoNext = false;
-          }
-          break;
-        case 'Education':
-          if (localData.education) {
-            Object.keys(localData.education).forEach((key) => {
-              const { type, university_collegeName, Start_Year, End_Year } = localData.education[key];
-              if (!type || !university_collegeName || !Start_Year || !End_Year ) {
-                canGoNext = false;
-              }
-            });
-          } else {
-            canGoNext = false;
-          }
-          break;
-        default:
-          break;
-      }
-  
-      if (canGoNext) {
-        setActiveTab(activeTab + 1);
-        dispatch(saveFormData(localData));
-      } else {
-        setOpen(true);
-      }
-    }
+
+  // Function to handle form submission
+  const handleSubmit = () => {
+    dispatch(saveFormData(localD));
+    alert('Submitted');
+    navigate('/my-resume');
   };
 
+  // Function to toggle drawer
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
 
+  // Styles for container
   const containerStyles = {
     width: isMobile ? '100%' : 'auto',
     margin: isMobile ? 0 : 'auto',
   };
 
   return (
+    // Grid container for the entire form
     <Grid container spacing={1} style={containerStyles}>
+      {/* Conditionally render the drawer for mobile and tablet views */}
       {(isTablet || isMobile) && (
         <>
+          {/* Button to open the drawer */}
           <IconButton onClick={toggleDrawer}>
             <MenuIcon />
           </IconButton>
+          {/* Drawer component */}
           <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer}>
           <List>
               {tabs.map((tab, index) => (
                 <ListItem
                   key={index}
                   onClick={() => {
+                    // Logic to handle tab click
                     if (index > activeTab) {
                       if (checkCanGoNext(activeTab)) {
                         setActiveTab(index);
@@ -192,6 +162,7 @@ function TemplateForm() {
           </Drawer>
         </>
       )}
+      {/* Conditionally render the tabs for desktop view */}
       {isDesktop && (
         <Grid item xs={3}>
           <Box className="tabs"
@@ -246,7 +217,8 @@ function TemplateForm() {
     </Box>
         </Grid>
       )}
-        <Modal
+      {/* Modal for error message */}
+      <Modal
           open={open}
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
@@ -271,9 +243,10 @@ function TemplateForm() {
             <Button onClick={handleClose}>Close</Button>
           </Box>
         </Modal>
-        
+      {/* Grid item for the form */}
       <Grid item xs={isDesktop ? 9 : 12}>
         <div className="template-form">
+            {/* Conditionally render the form sections based on the active tab */}
             {tabs[activeTab] === 'Personal Info' && 
               <PersonalInfo setPersonalInfo={setFormData} />
             }
@@ -289,8 +262,10 @@ function TemplateForm() {
               </div>
             )}
             <hr></hr>
+            {/* Conditionally render the Back and Next buttons based on the active tab */}
             {activeTab > 0 && activeTab  && <button type="button" className='back' onClick={goBack}>Back</button>}
             {activeTab < tabs.length - 1 && <button type="button" className='next' onClick={goNext}>Next</button>}
+            {/* Conditionally render the Submit button on the last tab */}
             {activeTab === tabs.length - 1 && 
               <button 
                 type="submit" 

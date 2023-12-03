@@ -12,18 +12,26 @@ import SchoolIcon from '@mui/icons-material/School';
 import WorkIcon from '@mui/icons-material/Work';
 
 const Template4 = () => {
-  const photo = useSelector(state => state.root.profilePhoto);
-  const personal = useSelector(state => state.root.formData.personalInfo) || {};
-  const experience = useSelector(state => state.root.formData.experience);
-  const experienceArray = experience ? Object.values(experience) : [];
-  const education = useSelector(state => state.root.formData.education);
-  const educationArray = education ? Object.values(education) : [];
-  const skills = useSelector(state => state.root.formData.skills);
-  
-  const getInitials = (firstName, lastName) => {
-    if (!firstName || !lastName) return "";
-    return `${firstName[0]}${lastName[0]}`;
-  };
+ // use Redux state in the component
+ const photo = useSelector(state => state.root.profilePhoto);
+ const personal = useSelector(state => state.root.formData.personalInfo) || {};
+
+ // selector for experience array
+ const experience = useSelector(state => state.root.formData.experience);
+ const experienceArray = experience ? Object.values(experience) : [];
+
+ // selector for education array
+ const education = useSelector(state => state.root.formData.education);
+ const educationArray = education ? Object.values(education) : [];
+
+ // selector for skills object
+ const skills = useSelector(state => state.root.formData.skills);
+
+ // function to get initials from user's first name and last name
+ const getInitials = (firstName, lastName) => {
+   if (!firstName || !lastName) return "";
+   return `${firstName[0]}${lastName[0]}`;
+ };
  
   return (
       <div className='container4'>

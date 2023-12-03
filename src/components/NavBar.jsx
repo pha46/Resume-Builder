@@ -7,28 +7,32 @@ import logo from '../assets/logo.svg';
 import { resetFormData } from '../Redux/actions/actions';
 import { useDispatch } from 'react-redux';
 
+// NavBar component
 const NavBar = () => {
+  // State for managing drawer open/close
   const [drawer, setDrawer] = useState(false);
+  
+  // Hooks for getting current location, theme, and dispatch function
   const location = useLocation();
   const theme = useTheme();
   const dispatch = useDispatch();
+  
+  // Media query for checking if the device is mobile
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
+  // Effect for resetting form data when navigating to '/resume-template'
   useEffect(() => {
-    // console.log('Current Path:', location.pathname);
-
-    if (location.pathname !== '/my-resume' && location.pathname !== '/about-us'
-    && location.pathname !== '/Resume-Builder' && location.pathname !== '/template-form'
-    ) {
-      // console.log('Resetting form data...');
+    if (location.pathname === '/resume-template' ) {
       dispatch(resetFormData());
     }
   }, [dispatch, location.pathname]);
 
+  // Function for toggling drawer
   const toggleDrawer = (open) => (event) => {
     setDrawer(open);
   };
 
+  // Function for rendering list of navigation links
   const list = () => (
     <Box
       sx={{ width: '100%'}}
@@ -56,6 +60,7 @@ const NavBar = () => {
     </Box>
   );
 
+  // Render AppBar with navigation links
   return (
     <>
       <AppBar position="static" className='AppBar'>

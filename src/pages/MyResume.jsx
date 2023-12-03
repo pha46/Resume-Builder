@@ -22,7 +22,7 @@ const MyResume = () => {
   const navigate = useNavigate();
   const componentRef = useRef();
   const paperRef = useRef();
-  const formData = useSelector(state => state.root.formData.personalInfo) || {};
+  const formData = useSelector(state => state.root.formData);
   const selectedTemplateId = useSelector(state => state.root.selectedTemplateID);
   const [filename, setFilename] = useState('');
   const [open, setOpen] = useState(false);
@@ -69,23 +69,24 @@ const MyResume = () => {
       TemplateComponent = null;
   }
 
-  const isDataEmpty = !formData || Object.keys(formData).length === 0;
+  const isDataEmpty =
+  !formData ||
+  Object.values(formData).some(field => !field || Object.keys(field).length === 0);
 
   return (!isDataEmpty && TemplateComponent) ? (
     <Box display="flex" flexDirection="column">
       <Box>
         <h1>Resume Preview</h1><br></br>
       </Box>
-      <Box display="flex" flexDirection={isMobile ? 'column' : 'row'} overflow="auto">
-        <Box width={isMobile ? '100%' : '60%'} height={isMobile ? '800px' : '100vh'}>
+      <Box display="flex" flexDirection={isMobile ? 'column' : 'row'} margin={'20px'}>
+        <Box width={isMobile ? '100%' : '60%'} height={isMobile ? '500px' : '500px'}>
           <Paper
             ref={paperRef}
             style={{
-              width: isMobile ? '90%':'65%',
-              height: '80%',
+              width: isMobile ? '100%':'65%',
+              height: '100%',
               border: '1px solid black',
               padding: '0px',
-              margin: isMobile? '1%':'0px 80px',
               overflow: 'scroll',
             }}
           >
@@ -151,29 +152,29 @@ const MyResume = () => {
       </Box>
       <Box>
       <Modal
-  open={open}
-  onClose={handleClose}
-  aria-labelledby="modal-modal-title"
-  aria-describedby="modal-modal-description"
->
-  <Box 
-    sx={{ 
-      position: 'absolute', 
-      top: '50%', 
-      left: '50%', 
-      transform: 'translate(-50%, -50%)', 
-      width: 400, 
-      bgcolor: 'background.paper', 
-      border: '1px solid blue', 
-      boxShadow: 24, 
-      p: 4 
-    }}
-  >
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box 
+          sx={{ 
+            position: 'absolute', 
+            top: '50%', 
+            left: '50%', 
+            transform: 'translate(-50%, -50%)', 
+            width: 400, 
+            bgcolor: 'background.paper', 
+            border: '1px solid blue', 
+            boxShadow: 24, 
+            p: 4 
+          }}
+        >
     <h2 id="modal-modal-title">Download Successful</h2>
     <p id="modal-modal-description">Your file has been downloaded successfully.</p>
     <Button onClick={handleClose}>Close</Button>
   </Box>
-</Modal>
+      </Modal>
       </Box>
     </Box>
   ) : (

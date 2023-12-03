@@ -9,20 +9,27 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { removeExperience } from '../../Redux/actions/actions';
 
+// WorkExperience component allows users to add and remove their work experiences.
 function WorkExperience({ setWorkExperienceData}) {
   const theme = useTheme();
+  // Check the screen size for responsive design
   const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
   const dispatch = useDispatch();
+  // Get experience data from Redux store
   const experienceDataFromStore = useSelector((state) => state.root.formData.experience);
+  // Local state for experience data
   const [experienceData, setExperienceData] = useState(experienceDataFromStore);
+  // Initial experiences are set based on the data from the store
   const initialExperiences = experienceDataFromStore ? Object.keys(experienceDataFromStore).map((key, index) => index) : [0];
   const [experiences, setExperiences] = useState(initialExperiences);
 
+  // Function to add a new experience
   const addExperience = () => {
     setExperiences([...experiences, {}]);
   };
 
+  // Function to remove the last experience from both local state and Redux store
   const removeExperienceFromStateAndStore = () => {
     const newExperiences = experiences.slice(0, -1);
     setExperiences(newExperiences);
@@ -33,6 +40,7 @@ function WorkExperience({ setWorkExperienceData}) {
     dispatch(removeExperience(experiences.length - 1));
   }
 
+  // Function to handle changes in the input fields
   const handleChange = (index) => (event) => {
     const { name, value } = event.target;
     if (experienceData) {
@@ -42,6 +50,7 @@ function WorkExperience({ setWorkExperienceData}) {
     }
   };
 
+  // Update the parent state whenever experienceData changes
   useEffect(() => {
     if (experienceData) {
       setWorkExperienceData(({ experience: experienceData }));
